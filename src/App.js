@@ -3,6 +3,7 @@ import "./App.css";
 import DisplayWebsiteInfo from "./components/DisplayWebsiteInfo";
 import InputUrl from "./components/InputUrl";
 import KeyWordsCard from "./components/KeyWordsCard";
+import SimSitesCard from "./components/SimSitesCard";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,14 +19,14 @@ class App extends React.Component {
   fetchUrlDetails = () => {
     let { url } = this.state;
     if (url === "") return;
-    this.setState({ searching: true });
+    this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("http://127.0.0.1:5000/https://www.google.com/")
+    fetch("http://127.0.0.1:5000/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({
-          keywords: data.Keywords,
-          websites: data.websites,
+          keywords: data.Keywords || [],
+          websites: data.websites || [],
           searching: false,
         })
       );
@@ -55,6 +56,7 @@ class App extends React.Component {
         <DisplayWebsiteInfo prompt={prompt} />
         <div>
           {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
+          {websites.length !== 0 && <SimSitesCard websites={websites} />}
         </div>
       </>
     );

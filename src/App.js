@@ -15,19 +15,46 @@ class App extends React.Component {
       url: "",
     };
   }
+  fetchUrlDetails = () => {
+    let { url } = this.state;
+    if (url === "") return;
+    this.setState({ searching: true });
+    //store keywords,websites
+    fetch("http://127.0.0.1:5000/https://www.google.com/")
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({
+          keywords: data.Keywords,
+          websites: data.websites,
+          searching: false,
+        })
+      );
+    //change state and
+  };
+  handleClick = () => {
+    this.fetchUrlDetails();
+  };
+  handleChange = (event) => {
+    this.setState({ url: event.target.value });
+  };
   render() {
-    let { searched, keywords, websites, url } = this.state;
+    let { searched, searching, keywords, websites, url } = this.state;
+    console.log(searching, keywords);
     let prompt = "";
-    if (searched === false) prompt = "Type a url to get info";
+    if (searching === true) prompt = "Looking for result";
+    else if (searched === false) prompt = "Type a url to get info";
     else if (keywords.length === 0 && websites.length === 0)
       prompt = "something went wrong try another url";
     else prompt = url;
     return (
       <>
-        <InputUrl />
+        <InputUrl
+          handleClick={this.handleClick}
+          handleChange={this.handleChange}
+        />
         <DisplayWebsiteInfo prompt={prompt} />
         <div>
-          <KeyWordsCard />
+          {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
         </div>
       </>
     );

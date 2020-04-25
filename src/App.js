@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import DisplayWebsiteInfo from "./components/DisplayWebsiteInfo";
 import InputUrl from "./components/InputUrl";
+import KeyWordsCard from "./components/KeyWordsCard";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,9 @@ class App extends React.Component {
       <>
         <InputUrl />
         <DisplayWebsiteInfo prompt={prompt} />
+        <div>
+          <KeyWordsCard />
+        </div>
       </>
     );
   }

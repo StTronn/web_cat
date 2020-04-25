@@ -3,7 +3,7 @@ import React from "react";
 export default function () {
   return (
     <div>
-      <form className="w-full max-w-sm">
+      <form className="">
         <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
           <input
             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"

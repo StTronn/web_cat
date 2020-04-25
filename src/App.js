@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import DisplayWebsiteInfo from "./components/DisplayWebsiteInfo";
+import InputUrl from "./components/InputUrl";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keywords: [],
+      websites: [],
+      searched: false,
+      searching: false,
+      url: "",
+    };
+  }
+  render() {
+    let { searched, keywords, websites, url } = this.state;
+    let prompt = "";
+    if (searched === false) prompt = "Type a url to get info";
+    else if (keywords.length === 0 && websites.length === 0)
+      prompt = "something went wrong try another url";
+    else prompt = url;
+    return (
+      <>
+        <InputUrl />
+        <DisplayWebsiteInfo prompt={prompt} />
+      </>
+    );
+  }
 }
 
 export default App;

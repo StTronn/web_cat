@@ -4,6 +4,7 @@ import DisplayWebsiteInfo from "./components/DisplayWebsiteInfo";
 import InputUrl from "./components/InputUrl";
 import KeyWordsCard from "./components/KeyWordsCard";
 import SimSitesCard from "./components/SimSitesCard";
+import Topbar from "./components/Topbar";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,11 +22,11 @@ class App extends React.Component {
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("http://127.0.0.1:5000/" + url)
+    fetch("https://web-cat-cluster.herokuapp.com/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({
-          keywords: data.Keywords || [],
+          keywords: data.keywords || [],
           websites: data.websites || [],
           searching: false,
         })

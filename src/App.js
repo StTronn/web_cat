@@ -22,7 +22,7 @@ class App extends React.Component {
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("https://web-cat-cluster.herokuapp.com/" + url)
+    fetch("http://127.0.0.1:5000/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({

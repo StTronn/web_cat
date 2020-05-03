@@ -1,12 +1,9 @@
 import React from "react";
 import "./App.css";
-import DisplayWebsiteInfo from "./components/DisplayWebsiteInfo";
-import InputUrl from "./components/InputUrl";
-import KeyWordsCard from "./components/KeyWordsCard";
-import SimSitesCard from "./components/SimSitesCard";
 import NavBar from "./components/NavBar";
-import ClustersSelction from "./components/ClustersSelection";
-import SelectedView from "./components/SelectedView";
+import Dash from "./components/dash/index";
+import Predict from "./components/websites/index";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -46,40 +43,22 @@ class App extends React.Component {
   };
 
   render() {
-    let { searched, searching, keywords, websites, url } = this.state;
-    let cluster_arr = new Array(70);
-    let prompt = "";
-    if (searching === true) prompt = "Looking for result";
-    else if (searched === false) prompt = "Type a url to get info";
-    else if (keywords.length === 0 && websites.length === 0)
-      prompt = "something went wrong try another url";
-    else prompt = url;
-
     return (
       <>
-        <NavBar />
-
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 my-6">
-          <h2 className="text-3xl font-bold leading-tight text-gray-900">
-            Categories
-          </h2>
-          <br />
-          {Array.apply(null, { length: 81 }).map((e, i) => (
-            <>
-              <ClustersSelction key={i} cluster_id={i} />
-            </>
-          ))}
-        </div>
-        <SelectedView />
-        <InputUrl
-          handleClick={this.handleClick}
-          handleChange={this.handleChange}
-        />
-        <DisplayWebsiteInfo prompt={prompt} />
-        <div>
-          {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
-          {websites.length !== 0 && <SimSitesCard websites={websites} />}
-        </div>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route path="/dash">
+              <Dash />
+            </Route>
+            <Route path="/websites">
+              <Predict />
+            </Route>
+            <Route path="/">
+              <Dash />
+            </Route>
+          </Switch>
+        </Router>
       </>
     );
   }

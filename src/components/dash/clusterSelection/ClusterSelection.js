@@ -1,12 +1,13 @@
 import React from "react";
 import SearchCluster from "./SearchCluster";
 import ClusterList from "./ClusterList";
+import SitesTable from "./sitestable/SitesTable";
 
 class ClusterSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedClusterId: 0,
+      selectedClusterId: null,
       searchMode: "query",
       clusterIds: [],
     };
@@ -37,6 +38,7 @@ class ClusterSelection extends React.Component {
           selectedClusterId={selectedClusterId}
         />
         <SearchCluster />
+        <SitesTable selectedClusterId={selectedClusterId} />
       </>
     );
   }

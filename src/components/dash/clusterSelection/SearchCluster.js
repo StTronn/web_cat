@@ -11,6 +11,7 @@ class SearchCluster extends React.Component {
           gridTemplateColumns: "1fr 8fr 2fr",
           alignItems: "center",
           justifyItems: "center",
+          marginBottom: "5.3em",
         }}
       >
         <div class="flex justify-center px-2 w-auto hidden sm:block h-full ">

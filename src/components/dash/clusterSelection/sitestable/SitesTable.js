@@ -9,13 +9,21 @@ class SitesTable extends React.Component {
     };
   }
   fetchSites = () => {
-    let { selectedClusterId } = this.props;
-    let url = selectedClusterId
-      ? "http://127.0.0.1:5000/getclusterurl/" + selectedClusterId
-      : "http://127.0.0.1:5000/getclusterurl/";
+    let { selectedClusterId, mode, searchText } = this.props;
+    let url = "";
+    if (mode === "all") {
+      url = selectedClusterId
+        ? "http://127.0.0.1:5000/getclusterurl/" + selectedClusterId
+        : "http://127.0.0.1:5000/getclusterurl/";
+    } else if (mode === "query") {
+      url = "http://127.0.0.1:5000/search/query/" + searchText;
+    } else {
+      url = "http://127.0.0.1:5000/search/domain/" + searchText;
+    }
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         this.setState({ sitesList: data });
       });
   };
@@ -24,7 +32,10 @@ class SitesTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+    if (
+      prevProps.mode !== this.props.mode ||
+      prevProps.selectedClusterId !== this.props.selectedClusterId
+    ) {
       this.fetchSites();
     }
   }

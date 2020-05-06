@@ -3,6 +3,16 @@ import InputUrl from "./InputUrl";
 
 class SearchCluster extends React.Component {
   render() {
+    let selectedClassName =
+      "bg-gray-800 text-white hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l";
+    let normalClassName =
+      "bg-gray-200 text-white hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-r";
+    let {
+      handleChange,
+      handleSubmit,
+      handleSearchMode,
+      searchMode,
+    } = this.props;
     return (
       <div
         style={{
@@ -22,12 +32,26 @@ class SearchCluster extends React.Component {
             Education
           </button>
         </div>
-        <InputUrl />
+        <InputUrl handleChange={handleChange} handleClick={handleSubmit} />
         <span class="">
-          <button class="bg-gray-800 text-white hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l">
+          <button
+            onClick={() => {
+              handleSearchMode("query");
+            }}
+            className={
+              searchMode === "query" ? selectedClassName : normalClassName
+            }
+          >
             Query
           </button>
-          <button class="bg-gray-200 text-white hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-r">
+          <button
+            onClick={() => {
+              handleSearchMode("domain");
+            }}
+            className={
+              searchMode === "domain" ? selectedClassName : normalClassName
+            }
+          >
             Org Name
           </button>
         </span>

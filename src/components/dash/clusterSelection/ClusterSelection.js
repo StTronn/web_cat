@@ -8,7 +8,10 @@ class ClusterSelection extends React.Component {
     super(props);
     this.state = {
       selectedClusterId: null,
+      //all,search,domain
+      mode: "all",
       searchMode: "query",
+      searchText: "",
       clusterIds: [],
     };
   }
@@ -23,13 +26,34 @@ class ClusterSelection extends React.Component {
     this.setState({ clusterIds: arr });
   }
 
+  handleChangeInput = (event) => {
+    let { mode } = this.state;
+    if (event.target.value === "") mode = "all";
+    this.setState({ searchText: event.target.value, mode });
+  };
+
+  handleSubmit = () => {
+    let { searchMode } = this.state;
+    this.setState({ mode: searchMode });
+  };
+
+  handleSearchMode = (searchMode) => {
+    this.setState({ searchMode });
+  };
+
   selectClusterId = (id) => {
-    let { selectedClusterId } = this.state;
-    this.setState({ selectedClusterId: id });
+    this.setState({ selectedClusterId: id, mode: "all" });
   };
 
   render() {
-    let { clusterIds, selectedClusterId } = this.state;
+    let {
+      clusterIds,
+      selectedClusterId,
+      mode,
+      searchText,
+      searchMode,
+    } = this.state;
+    console.log(mode, searchMode);
     return (
       <>
         <ClusterList
@@ -37,8 +61,17 @@ class ClusterSelection extends React.Component {
           selectClusterId={this.selectClusterId}
           selectedClusterId={selectedClusterId}
         />
-        <SearchCluster />
-        <SitesTable selectedClusterId={selectedClusterId} />
+        <SearchCluster
+          handleChange={this.handleChangeInput}
+          handleSubmit={this.handleSubmit}
+          handleSearchMode={this.handleSearchMode}
+          searchMode={searchMode}
+        />
+        <SitesTable
+          selectedClusterId={selectedClusterId}
+          mode={mode}
+          searchText={searchText}
+        />
       </>
     );
   }

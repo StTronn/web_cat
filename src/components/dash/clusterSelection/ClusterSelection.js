@@ -2,6 +2,7 @@ import React from "react";
 import SearchCluster from "./SearchCluster";
 import ClusterList from "./ClusterList";
 import SitesTable from "./sitestable/SitesTable";
+import ClusterInfo from "./clusterinfo/index";
 
 class ClusterSelection extends React.Component {
   constructor(props) {
@@ -61,6 +62,7 @@ class ClusterSelection extends React.Component {
           selectClusterId={this.selectClusterId}
           selectedClusterId={selectedClusterId}
         />
+        <ClusterInfo selectedClusterId={selectedClusterId} />
         <SearchCluster
           handleChange={this.handleChangeInput}
           handleSubmit={this.handleSubmit}

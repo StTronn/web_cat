@@ -16,7 +16,12 @@ class SitesTable extends React.Component {
         ? "http://127.0.0.1:5000/getclusterurl/" + selectedClusterId
         : "http://127.0.0.1:5000/getclusterurl/";
     } else if (mode === "query") {
-      url = "http://127.0.0.1:5000/search/query/" + searchText;
+      url = selectedClusterId
+        ? "http://127.0.0.1:5000/search/query/" +
+          searchText +
+          "/cluster/" +
+          selectedClusterId
+        : "http://127.0.0.1:5000/search/query/" + searchText;
     } else {
       url = "http://127.0.0.1:5000/search/domain/" + searchText;
     }

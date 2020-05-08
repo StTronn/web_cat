@@ -17,10 +17,11 @@ class App extends React.Component {
 
   fetchUrlDetails = () => {
     let { url } = this.state;
+    console.log(url);
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("http://127.0.0.1:5000/" + url)
+    fetch("http://websitecat-275808.appspot.com/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({
@@ -56,7 +57,7 @@ class App extends React.Component {
           handleChange={this.handleChange}
         />
         <DisplayWebsiteInfo prompt={prompt} />
-        <div>
+        <div style={{ display: "grid", alignItems: "center" }}>
           {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
           {websites.length !== 0 && <SimSitesCard websites={websites} />}
         </div>

@@ -10,6 +10,10 @@ class ClusterInfo extends React.Component {
     this.state = {
       clusterInfo: clusterData,
       currentCluster: null,
+      showRank: true,
+      showSize: true,
+      flipRank: false,
+      flipSize: false,
     };
   }
 
@@ -20,8 +24,14 @@ class ClusterInfo extends React.Component {
   };
   componentDidMount() {
     //fetch and store clusterInfo
-    console.log(this.state);
   }
+
+  handleFlip = (w) => {
+    let { flipRank, flipSize, showRank, showSize } = this.state;
+    if (w === "Rank")
+      this.setState({ flipRank: !flipRank, showSize: !showSize });
+    else this.setState({ flipSize: !flipSize, showRank: !showRank });
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
@@ -30,8 +40,8 @@ class ClusterInfo extends React.Component {
   }
   render() {
     let { selectedClusterId } = this.props;
-    let { clusterInfo } = this.state;
-    console.log(selectedClusterId);
+    let { clusterInfo, showRank, showSize, flipSize, flipRank } = this.state;
+    console.log(showRank, flipRank, showSize, flipSize);
     if (selectedClusterId) {
       let clusterSize = clusterInfo[selectedClusterId].size[1];
       let clusterSizeChange =
@@ -58,14 +68,20 @@ class ClusterInfo extends React.Component {
             }}
           >
             <InfoCard
+              flip={flipRank}
+              hide={!showRank}
               name="Rank"
               primaryData={clusterRank}
               secondaryData={clusterRankChange}
+              handleFlip={this.handleFlip}
             />
             <InfoCard
+              flip={flipSize}
+              hide={!showSize}
               name="Size"
               primaryData={clusterSize}
               secondaryData={clusterSizeChange}
+              handleFlip={this.handleFlip}
             />
           </div>
 

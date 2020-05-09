@@ -1,6 +1,8 @@
 import React from "react";
 import KeyWordsCard from "../../../websites/KeyWordsCard";
 import clusterData from "./clusters.json";
+import InfoCard from "./InfoCard";
+import "./clusterinfo.css";
 //card ,card_cointainer,border
 class ClusterInfo extends React.Component {
   constructor(props) {
@@ -31,6 +33,7 @@ class ClusterInfo extends React.Component {
     let { clusterInfo } = this.state;
     console.log(selectedClusterId);
     if (selectedClusterId) {
+      let clusterSize = clusterInfo[selectedClusterId].size[1];
       let clusterSizeChange =
         clusterInfo[selectedClusterId].size[1] -
         clusterInfo[selectedClusterId].size[0];
@@ -43,8 +46,9 @@ class ClusterInfo extends React.Component {
           clusterInfo[selectedClusterId].rank[1] /
             clusterInfo[selectedClusterId].size[1]
         ) - clusterRank;
+
       return (
-        <>
+        <div key={selectedClusterId}>
           <div
             style={{
               display: "grid",
@@ -53,63 +57,20 @@ class ClusterInfo extends React.Component {
               marginBottom: "40px",
             }}
           >
-            <span
-              id="app"
-              className="bg-white inline-block h-60 rounded shadow-md flex card text-grey-darkest mx-4 my-8"
-              style={{ width: "320px" }}
-            >
-              <div className="w-full flex flex-col items-center">
-                <div className="p-4 pb-0 flex-1">
-                  <h3 className="font-medium mb-1 text-center text-grey-darkest">
-                    {" "}
-                    Rank
-                  </h3>
-                  <div className="text-xs flex items-center mb-6">
-                    <i className="fas fa-map-marker-alt mr-1 text-grey-dark" />
-                  </div>
-                  <span className="text-5xl text-grey-darkest">
-                    {clusterRank}
-                    <span className=" bg-teal-300 text-sm ml-2 rounded-lg p-1">
-                      {clusterRankChange >= 0 ? "+" : "-"}
-                      {clusterRankChange}
-                    </span>
-                  </span>
-                  <div className="flex items-center justify-center mt-4"></div>
-                </div>
-                <div className="bg-gray-400 p-3 flex w-full text-center items-center justify-between transition hover:bg-grey-light">
-                  Learn More
-                </div>
-              </div>
-            </span>
-            <span
-              id="app"
-              className="bg-white  h-60 rounded shadow-md flex card text-grey-darkest mx-4 my-8"
-              style={{ width: "320px" }}
-            >
-              <div className="w-full flex flex-col items-center">
-                <div className="p-4 pb-0 flex-1">
-                  <h3 className="font-medium mb-1 text-center text-grey-darkest">
-                    {" "}
-                    Size
-                  </h3>
-                  <div className="text-xs flex items-center mb-6">
-                    <i className="fas fa-map-marker-alt mr-1 text-grey-dark" />
-                  </div>
-                  <span className="text-5xl text-grey-darkest">
-                    {clusterInfo[selectedClusterId].size[0]}
-                    <span className=" bg-teal-300 text-sm ml-2 rounded-lg p-1">
-                      {clusterSizeChange >= 0 ? "+" : "-"} {clusterSizeChange}
-                    </span>
-                  </span>
-                  <div className="flex items-center justify-center mt-4"></div>
-                </div>
-                <div className="bg-gray-400 p-3 flex w-full text-center items-center justify-between transition hover:bg-grey-light">
-                  Learn More
-                </div>
-              </div>
-            </span>
+            <InfoCard
+              name="Rank"
+              primaryData={clusterRank}
+              secondaryData={clusterRankChange}
+            />
+            <InfoCard
+              name="Size"
+              primaryData={clusterSize}
+              secondaryData={clusterSizeChange}
+            />
           </div>
+
           <div
+            className="animate__animated animate__fadeInDown"
             style={{
               display: "grid",
               justifyItems: "center",
@@ -124,7 +85,7 @@ class ClusterInfo extends React.Component {
                 })}
             />
           </div>
-        </>
+        </div>
       );
     } else {
       return <></>;

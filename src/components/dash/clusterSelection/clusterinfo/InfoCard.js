@@ -8,6 +8,7 @@ const InfoCard = ({
   flip,
   hide,
   handleFlip,
+  arr,
 }) => {
   let downClassName = " bg-red-300 text-sm ml-2 rounded-lg p-1";
   let upClassName = " bg-teal-300 text-sm ml-2 rounded-lg p-1";
@@ -39,18 +40,17 @@ const InfoCard = ({
             onClick={() => {
               handleFlip(name);
             }}
-            className="bg-gray-400 p-3 flex w-full text-center items-center justify-between transition hover:bg-grey-light"
+            className="bg-teal-500 p-3 flex w-full text-center text-white items-center justify-between transition hover:bg-teal-700"
           >
             Learn More
           </div>
         </div>
       </span>
     );
-  else return <FlipedInfo handleFlip={handleFlip} name={name} />;
+  else return <FlipedInfo handleFlip={handleFlip} name={name} arr={arr} />;
 };
 
-const FlipedInfo = ({ handleFlip, name }) => {
-  console.log("flipedinfo", handleFlip, name);
+const FlipedInfo = ({ handleFlip, name, arr }) => {
   return (
     <>
       <div
@@ -61,21 +61,21 @@ const FlipedInfo = ({ handleFlip, name }) => {
           height: "60vh",
         }}
       >
-        <LineChart />
-        <div>
-          <button
-            style={{ width: "40px" }}
-            onClick={() => {
-              console.log("hello");
-              handleFlip(name);
-            }}
-            class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
-          >
-            X
-          </button>
-        </div>
+        <LineChart arr={arr} />
       </div>
       <div>hello</div>
+      <div style={{ gridArea: "b" }}>
+        <button
+          style={{ width: "40px", gridArea: "b" }}
+          onClick={() => {
+            console.log("hello");
+            handleFlip(name);
+          }}
+          class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
+        >
+          X
+        </button>
+      </div>
     </>
   );
 };

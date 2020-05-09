@@ -23,5 +23,11 @@
         opacity: 1; 
     }       
 }
+.info_cointainer {
+            display: grid;
+              grid-template-columns: "1fr 1fr ";
+              justify-items: "center";
+              margin-bottom: "40px";
 
 
+}

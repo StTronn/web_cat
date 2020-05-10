@@ -4,6 +4,8 @@ import clusterData from "./clusters.json";
 import InfoCard from "./InfoCard";
 import "./clusterinfo.css";
 import styled from "styled-components";
+import DaySelector from "./DaySelector";
+
 const Cointainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -26,6 +28,7 @@ class ClusterInfo extends React.Component {
       showSize: true,
       flipRank: false,
       flipSize: false,
+      day: 1,
     };
   }
 
@@ -45,6 +48,10 @@ class ClusterInfo extends React.Component {
     else this.setState({ flipSize: !flipSize, showRank: !showRank });
   };
 
+  changeDay = (day) => {
+    this.setState({ day });
+  };
+
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       this.fetchInfo();
@@ -52,27 +59,42 @@ class ClusterInfo extends React.Component {
   }
   render() {
     let { selectedClusterId } = this.props;
-    let { clusterInfo, showRank, showSize, flipSize, flipRank } = this.state;
+    let {
+      clusterInfo,
+      showRank,
+      showSize,
+      flipSize,
+      flipRank,
+      day,
+    } = this.state;
 
     if (selectedClusterId) {
       let clusterRankarr = clusterInfo[selectedClusterId].rank;
       let clusterSizearr = clusterInfo[selectedClusterId].size;
-      let clusterSize = clusterInfo[selectedClusterId].size[1];
+      let clusterSize = clusterInfo[selectedClusterId].size[day];
       let clusterSizeChange =
-        clusterInfo[selectedClusterId].size[1] -
-        clusterInfo[selectedClusterId].size[0];
+        clusterInfo[selectedClusterId].size[day] -
+        clusterInfo[selectedClusterId].size[day - 1];
       let clusterRank = Math.round(
-        clusterInfo[selectedClusterId].rank[0] /
-          clusterInfo[selectedClusterId].size[0]
+        clusterInfo[selectedClusterId].rank[day - 1] /
+          clusterInfo[selectedClusterId].size[day - 1]
       );
       let clusterRankChange =
         Math.round(
-          clusterInfo[selectedClusterId].rank[1] /
-            clusterInfo[selectedClusterId].size[1]
+          clusterInfo[selectedClusterId].rank[day] /
+            clusterInfo[selectedClusterId].size[day]
         ) - clusterRank;
 
       return (
         <div key={selectedClusterId}>
+          {showRank && showSize && (
+            <DaySelector
+              changeDay={this.changeDay}
+              days={Array.apply(null, Array(30)).map(function (_, i) {
+                return i;
+              })}
+            />
+          )}
           <Cointainer>
             <InfoCard
               flip={flipRank}

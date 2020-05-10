@@ -1,5 +1,6 @@
 import React from "react";
 import LineChart from "./LineChart";
+import BarInfo from "./BarInfo";
 
 const InfoCard = ({
   name,
@@ -36,14 +37,14 @@ const InfoCard = ({
             </span>
             <div className="flex items-center justify-center mt-4"></div>
           </div>
-          <div
+          <button
             onClick={() => {
               handleFlip(name);
             }}
             className="bg-teal-500 p-3 flex w-full text-center text-white items-center justify-between transition hover:bg-teal-700"
           >
             Learn More
-          </div>
+          </button>
         </div>
       </span>
     );
@@ -63,12 +64,13 @@ const FlipedInfo = ({ handleFlip, name, arr }) => {
       >
         <LineChart arr={arr} />
       </div>
-      <div>hello</div>
+      <div className="animate__animated animate__flipInX w-full mx-4">
+        <BarInfo arr={arr} />
+      </div>
       <div style={{ gridArea: "b" }}>
         <button
           style={{ width: "40px", gridArea: "b" }}
           onClick={() => {
-            console.log("hello");
             handleFlip(name);
           }}
           class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"

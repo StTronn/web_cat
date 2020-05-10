@@ -1,35 +1,40 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 class BarInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       day1: 1,
+      day1input: 1,
       day2: 2,
+      day2input: 2,
     };
   }
 
+  handleDayInput = (event, box) => {
+    let input = event.target.value;
+    if (input < 1 || input > 30) this.setState({ [box + "input"]: input });
+    else this.setState({ [box]: input, [box + "input"]: input });
+  };
+
+  resetInput = (box) => {
+    let value = this.state[box];
+    this.setState({ [box + "input"]: value });
+  };
+
   render() {
-    let { day1, day2 } = this.state;
+    let { day1, day2, day1input, day2input } = this.state;
+    console.log("day", day2input, day2);
     let { arr } = this.props;
     let data = [
       {
         name: "day " + day1,
-        day1: arr[day1],
+        green: arr[day1],
       },
       {
         name: "day " + day2,
-        day2: arr[day2],
+        purple: arr[day2],
       },
     ];
     return (
@@ -49,9 +54,43 @@ class BarInfo extends React.Component {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="day1" fill="#38A169" />
-          <Bar dataKey="day2" fill="#805AD5" />
+          <Bar dataKey="green" fill="#38A169" />
+          <Bar dataKey="purple" fill="#805AD5" />
         </BarChart>
+        <div style={{ width: "500px" }} className="flex justify-center">
+          <div class="flex items-center align-center">
+            <div class="w-16 mx-8 ">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold text-center">
+                day
+              </label>
+              <input
+                class="w-16 shadow-inner p-4 border-0 bg-gray-100 text-center"
+                type="text"
+                name="lat"
+                onChange={(e) => {
+                  this.handleDayInput(e, "day1");
+                }}
+                onBlur={() => this.resetInput("day1")}
+                value={day1input}
+              />
+            </div>
+            <div class=" w-16 mx-8">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold text-center">
+                day
+              </label>
+              <input
+                class="w-16 shadow-inner p-4 border-0 bg-gray-100 text-center"
+                type="text"
+                name="lon"
+                onChange={(e) => {
+                  this.handleDayInput(e, "day2");
+                }}
+                onBlur={() => this.resetInput("day2")}
+                value={day2input}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

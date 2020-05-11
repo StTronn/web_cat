@@ -25,7 +25,18 @@ class KeyWordsCard extends React.Component {
         </div>
       );
     } else {
-      return <>hello</>;
+      return (
+        <>
+          hello
+          <button
+            style={{ width: "40px", gridArea: "b" }}
+            onClick={handleFlip}
+            class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
+          >
+            X
+          </button>
+        </>
+      );
     }
   }
 }

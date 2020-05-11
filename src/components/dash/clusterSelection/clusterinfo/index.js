@@ -1,5 +1,5 @@
 import React from "react";
-import KeyWordsCard from "../../../websites/KeyWordsCard";
+import KeyWordsCard from "./KeyWordsCard";
 import clusterData from "./clusters.json";
 import InfoCard from "./InfoCard";
 import "./clusterinfo.css";
@@ -28,6 +28,7 @@ class ClusterInfo extends React.Component {
       showSize: true,
       flipRank: false,
       flipSize: false,
+      flipKeyword: false,
       day: 1,
     };
   }

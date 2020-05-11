@@ -49,6 +49,10 @@ class ClusterInfo extends React.Component {
     else this.setState({ flipSize: !flipSize, showRank: !showRank });
   };
 
+  handleKeyWordFlip = () => {
+    let { flipKeyword } = this.state;
+    this.setState({ flipKeyword: !flipKeyword });
+  };
   changeDay = (day) => {
     this.setState({ day });
   };
@@ -66,6 +70,7 @@ class ClusterInfo extends React.Component {
       showSize,
       flipSize,
       flipRank,
+      flipKeyword,
       day,
     } = this.state;
 
@@ -88,7 +93,7 @@ class ClusterInfo extends React.Component {
 
       return (
         <div key={selectedClusterId}>
-          {showRank && showSize && (
+          {showRank && showSize && !flipKeyword && (
             <DaySelector
               changeDay={this.changeDay}
               days={Array.apply(null, Array(30)).map(function (_, i) {
@@ -96,27 +101,28 @@ class ClusterInfo extends React.Component {
               })}
             />
           )}
-          <Cointainer>
-            <InfoCard
-              flip={flipRank}
-              hide={!showRank}
-              name="Rank"
-              primaryData={clusterRank}
-              secondaryData={clusterRankChange}
-              handleFlip={this.handleFlip}
-              arr={clusterRankarr}
-            />
-            <InfoCard
-              flip={flipSize}
-              hide={!showSize}
-              name="Size"
-              primaryData={clusterSize}
-              secondaryData={clusterSizeChange}
-              handleFlip={this.handleFlip}
-              arr={clusterSizearr}
-            />
-          </Cointainer>
-
+          {!flipKeyword && (
+            <Cointainer>
+              <InfoCard
+                flip={flipRank}
+                hide={!showRank}
+                name="Rank"
+                primaryData={clusterRank}
+                secondaryData={clusterRankChange}
+                handleFlip={this.handleFlip}
+                arr={clusterRankarr}
+              />
+              <InfoCard
+                flip={flipSize}
+                hide={!showSize}
+                name="Size"
+                primaryData={clusterSize}
+                secondaryData={clusterSizeChange}
+                handleFlip={this.handleFlip}
+                arr={clusterSizearr}
+              />
+            </Cointainer>
+          )}
           <div
             className="animate__animated animate__fadeInDown"
             style={{
@@ -127,6 +133,8 @@ class ClusterInfo extends React.Component {
           >
             {showRank && showSize && (
               <KeyWordsCard
+                handleFlip={this.handleKeyWordFlip}
+                flip={flipKeyword}
                 keywords={clusterInfo[selectedClusterId].keyword[0]
                   .split(/(\s+)/)
                   .filter(function (e) {

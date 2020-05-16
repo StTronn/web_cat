@@ -2,7 +2,14 @@ import React from "react";
 import KeyWordsCard from "./KeyWordsCard";
 import InputUrl from "./InputUrl";
 import SimSitesCard from "./SimSitesCard";
+import Spinner from "react-spinkit";
 import { URL } from "../../utils";
+import styled from "styled-components";
+
+const Cointainer = styled.div`
+  display: grid;
+  justify-items: center;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -50,26 +57,38 @@ class App extends React.Component {
     else if (keywords.length === 0 && websites.length === 0)
       prompt = "something went wrong try another url";
     else prompt = url;
-
-    return (
-      <div>
-        <InputUrl
-          handleClick={this.handleClick}
-          handleChange={this.handleChange}
-        />
-        <DisplayWebsiteInfo prompt={prompt} />
-        <div style={{ display: "grid", alignItems: "center" }}>
-          {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
-          {websites.length !== 0 && <SimSitesCard websites={websites} />}
-        </div>
-      </div>
-    );
+    if (!searching) {
+      return (
+        <Cointainer>
+          <InputUrl
+            handleClick={this.handleClick}
+            handleChange={this.handleChange}
+          />
+          <DisplayWebsiteInfo prompt={prompt} />
+          <div style={{ display: "grid", alignItems: "center" }}>
+            {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
+            {websites.length !== 0 && <SimSitesCard websites={websites} />}
+          </div>
+        </Cointainer>
+      );
+    } else {
+      return (
+        <Cointainer>
+          <InputUrl
+            handleClick={this.handleClick}
+            handleChange={this.handleChange}
+          />
+          <br />
+          <Spinner name="folding-cube" color="teal" />
+        </Cointainer>
+      );
+    }
   }
 }
 
 function DisplayWebsiteInfo({ prompt }) {
   return (
-    <div className=" text-center max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg mb-8 shadow-xl">
+    <div className=" text-center max-w-md mx-auto flex p-6 bg-gray-100 mt-10 rounded-lg mb-8 shadow-xl animate__animated animate__fadeInDown">
       <div className="flex justify-center text-center ml-6 pt-1">
         <h1 className="text-center text-2xl text-blue-700 leading-tight">
           {prompt}

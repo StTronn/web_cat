@@ -20,7 +20,7 @@ class SitesTable extends React.Component {
   }
   fetchSites = () => {
     let { selectedClusterId, mode, searchText } = this.props;
-    let url = "http://ec2-18-233-151-7.compute-1.amazonaws.com:5000";
+    let url = "https://ec2-18-233-151-7.compute-1.amazonaws.com:5000";
     if (mode === "all") {
       url += selectedClusterId
         ? "/getclusterurl/" + selectedClusterId

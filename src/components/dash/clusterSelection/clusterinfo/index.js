@@ -135,7 +135,7 @@ class ClusterInfo extends React.Component {
               <KeyWordsCard
                 handleFlip={this.handleKeyWordFlip}
                 flip={flipKeyword}
-                keywords={clusterInfo[selectedClusterId].keyword[0]
+                keywords={clusterInfo[selectedClusterId].keywords[0]
                   .split(/(\s+)/)
                   .filter(function (e) {
                     return e.trim().length > 0;

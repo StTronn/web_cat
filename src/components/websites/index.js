@@ -2,6 +2,7 @@ import React from "react";
 import KeyWordsCard from "./KeyWordsCard";
 import InputUrl from "./InputUrl";
 import SimSitesCard from "./SimSitesCard";
+import { URL } from "../../utils";
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends React.Component {
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("https://ec2-18-233-151-7.compute-1.amazonaws.com:5000/" + url)
+    fetch(URL + "/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({

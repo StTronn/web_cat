@@ -1,6 +1,7 @@
 import React from "react";
 
 const siterow = ({ site_obj }) => {
+  console.log(site_obj.change);
   return (
     <tr>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -23,8 +24,14 @@ const siterow = ({ site_obj }) => {
         <h3>{site_obj.rank}</h3>
       </td>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-          +10
+        <span
+          className={
+            parseInt(site_obj.change) >= 0
+              ? "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+              : "px-2 inline-flex text-xs leading-5 font-semibold rounded-full  bg-red-100 text-red-800"
+          }
+        >
+          {site_obj.change}
         </span>
       </td>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">

@@ -2,6 +2,7 @@ import React from "react";
 import SiteRow from "./SiteRow";
 import Spinner from "react-spinkit";
 import styled from "styled-components";
+import { URL } from "../../../../utils";
 
 const LoadingCointainer = styled.div`
   display: grid;
@@ -20,7 +21,7 @@ class SitesTable extends React.Component {
   }
   fetchSites = () => {
     let { selectedClusterId, mode, searchText } = this.props;
-    let url = "https://ec2-18-233-151-7.compute-1.amazonaws.com:5000";
+    let url = URL;
     if (mode === "all") {
       url += selectedClusterId
         ? "/getclusterurl/" + selectedClusterId

@@ -21,7 +21,7 @@ class App extends React.Component {
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch("http://websitecat-275808.appspot.com/" + url)
+    fetch("http://ec2-18-233-151-7.compute-1.amazonaws.com:5000/" + url)
       .then((response) => response.json())
       .then((data) =>
         this.setState({

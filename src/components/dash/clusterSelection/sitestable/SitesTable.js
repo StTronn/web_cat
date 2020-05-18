@@ -6,6 +6,9 @@ import { URL } from "../../../../utils";
 
 const LoadingCointainer = styled.div`
   display: grid;
+  width: 40vh;
+  padding-top: 40px;
+  padding-bottom: 40px;
   align-items: center;
   justify-items: center;
   width: 100%;

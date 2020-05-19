@@ -4,6 +4,7 @@ import InputUrl from "./InputUrl";
 import SimSitesCard from "./SimSitesCard";
 import Spinner from "react-spinkit";
 import { URL } from "../../utils";
+import Toggle from "./Toggle";
 import styled from "styled-components";
 
 const Cointainer = styled.div`
@@ -20,16 +21,25 @@ class App extends React.Component {
       searched: false,
       searching: false,
       url: "",
+      showSim: true,
     };
   }
 
+  toggleSim = () => {
+    let { showSim } = this.state;
+    this.setState({ showSim: !showSim });
+  };
+
   fetchUrlDetails = () => {
-    let { url } = this.state;
-    console.log(url);
+    let { url, showSim } = this.state;
+    console.log(showSim);
+    let temp = "";
+    if (showSim) temp = "/1";
+    else temp = "/0";
     if (url === "") return;
     this.setState({ searching: true, searched: true });
     //store keywords,websites
-    fetch(URL + "/" + url)
+    fetch(URL + "/" + url + temp)
       .then((response) => response.json())
       .then((data) =>
         this.setState({
@@ -50,7 +60,7 @@ class App extends React.Component {
   };
 
   render() {
-    let { searched, searching, keywords, websites, url } = this.state;
+    let { searched, searching, keywords, websites, url, showSim } = this.state;
     let prompt = "";
     if (searching === true) prompt = "Looking for result";
     else if (searched === false) prompt = "Type a url to get info";
@@ -64,6 +74,7 @@ class App extends React.Component {
             handleClick={this.handleClick}
             handleChange={this.handleChange}
           />
+          <Toggle on={showSim} toggle={this.toggleSim} />
           <DisplayWebsiteInfo prompt={prompt} />
           <div style={{ display: "grid", alignItems: "center" }}>
             {keywords.length !== 0 && <KeyWordsCard keywords={keywords} />}
@@ -78,6 +89,7 @@ class App extends React.Component {
             handleClick={this.handleClick}
             handleChange={this.handleChange}
           />
+          <Toggle on={showSim} />
           <br />
           <Spinner name="folding-cube" color="teal" />
         </Cointainer>

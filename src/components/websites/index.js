@@ -22,6 +22,7 @@ class App extends React.Component {
       searching: false,
       url: "",
       showSim: true,
+      status: 200,
     };
   }
 
@@ -46,6 +47,7 @@ class App extends React.Component {
           keywords: data.keywords || [],
           websites: data.websites || [],
           searching: false,
+          status: data.status,
         })
       );
     //change state and
@@ -60,12 +62,19 @@ class App extends React.Component {
   };
 
   render() {
-    let { searched, searching, keywords, websites, url, showSim } = this.state;
+    let {
+      searched,
+      searching,
+      keywords,
+      websites,
+      url,
+      showSim,
+      status,
+    } = this.state;
     let prompt = "";
     if (searching === true) prompt = "Looking for result";
     else if (searched === false) prompt = "Type a url to get info";
-    else if (keywords.length === 0 && websites.length === 0)
-      prompt = "504 Timeout";
+    else if (keywords.length === 0 && websites.length === 0) prompt = status;
     else prompt = url;
     if (!searching) {
       return (

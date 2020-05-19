@@ -65,7 +65,7 @@ class App extends React.Component {
     if (searching === true) prompt = "Looking for result";
     else if (searched === false) prompt = "Type a url to get info";
     else if (keywords.length === 0 && websites.length === 0)
-      prompt = "something went wrong try another url";
+      prompt = "504 Timeout";
     else prompt = url;
     if (!searching) {
       return (

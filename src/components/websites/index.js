@@ -23,6 +23,7 @@ class App extends React.Component {
       url: "",
       showSim: true,
       status: 200,
+      clusterno: null,
     };
   }
 
@@ -48,6 +49,7 @@ class App extends React.Component {
           websites: data.websites || [],
           searching: false,
           status: data.status,
+          clusterno: data.cluster_no || "0",
         })
       );
     //change state and
@@ -70,12 +72,13 @@ class App extends React.Component {
       url,
       showSim,
       status,
+      clusterno,
     } = this.state;
     let prompt = "";
     if (searching === true) prompt = "Looking for result";
     else if (searched === false) prompt = "Type a url to get info";
     else if (keywords.length === 0 && websites.length === 0) prompt = status;
-    else prompt = url;
+    else prompt = "cluster " + clusterno;
     if (!searching) {
       return (
         <Cointainer>

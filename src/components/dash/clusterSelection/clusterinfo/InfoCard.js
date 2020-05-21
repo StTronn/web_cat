@@ -68,6 +68,7 @@ const FlipedInfo = ({ handleFlip, name, arr }) => {
         <BarInfo arr={arr} />
       </div>
       <div style={{ gridArea: "b" }}>
+        <h2 className="mb-4">{name}</h2>
         <button
           style={{ width: "40px", gridArea: "b" }}
           onClick={() => {

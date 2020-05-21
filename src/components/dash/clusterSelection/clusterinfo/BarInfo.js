@@ -39,24 +39,26 @@ class BarInfo extends React.Component {
     ];
     return (
       <div>
-        <BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="green" fill="#38A169" />
-          <Bar dataKey="purple" fill="#805AD5" />
-        </BarChart>
+        <div>
+          <BarChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="green" fill="#38A169" />
+            <Bar dataKey="purple" fill="#805AD5" />
+          </BarChart>
+        </div>
         <div style={{ width: "500px" }} className="flex justify-center">
           <div class="flex items-center align-center">
             <div class="w-16 mx-8 ">

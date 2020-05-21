@@ -8,6 +8,9 @@ export default function ({ handleChange, handleClick }) {
     >
       <input
         onChange={handleChange}
+        onKeyDown={(e) => {
+          handleEnter(e, handleClick);
+        }}
         className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
         type="text"
         placeholder="https://www.google.com/"
@@ -23,3 +26,9 @@ export default function ({ handleChange, handleClick }) {
     </span>
   );
 }
+
+let handleEnter = (e, handleClick) => {
+  if (e.key === "Enter") {
+    handleClick();
+  }
+};

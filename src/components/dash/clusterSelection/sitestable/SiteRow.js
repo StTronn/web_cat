@@ -15,7 +15,7 @@ const siterow = ({ site_obj }) => {
           </div>
           <div className="ml-4">
             <div className="text-sm leading-5 font-medium text-gray-900">
-              {site_obj.url}
+              <a href={site_obj.url}>{site_obj.url}</a>
             </div>
           </div>
         </div>

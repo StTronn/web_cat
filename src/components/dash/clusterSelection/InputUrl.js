@@ -5,6 +5,9 @@ export default function ({ handleChange, handleClick }) {
     <span className="flex w-full  items-center border-b border-b-2 border-gray-500 py-1 ">
       <input
         onChange={handleChange}
+        onKeyDown={(e) => {
+          handleEnter(e, handleClick);
+        }}
         className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
         type="text"
         placeholder="https://www.google.com/"
@@ -20,3 +23,9 @@ export default function ({ handleChange, handleClick }) {
     </span>
   );
 }
+
+let handleEnter = (e, handleClick) => {
+  if (e.key === "Enter") {
+    handleClick();
+  }
+};

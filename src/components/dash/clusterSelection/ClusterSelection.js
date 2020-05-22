@@ -8,7 +8,7 @@ class ClusterSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedClusterId: null,
+      selectedClusterId: 0,
       //all,search,domain
       mode: "all",
       searchMode: "query",
@@ -20,7 +20,7 @@ class ClusterSelection extends React.Component {
   componentDidMount() {
     //dummy cluster list
     let arr = [];
-    for (let i = 0; i <= 99; i++) {
+    for (let i = 0; i <= 100; i++) {
       arr.push(i);
     }
 
@@ -68,6 +68,7 @@ class ClusterSelection extends React.Component {
           handleSubmit={this.handleSubmit}
           handleSearchMode={this.handleSearchMode}
           searchMode={searchMode}
+          selectedClusterId={selectedClusterId}
         />
         <SitesTable
           selectedClusterId={selectedClusterId}

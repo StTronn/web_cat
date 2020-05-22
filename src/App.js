@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Dash from "./components/dash/index";
+import Home from "./components/Home/index";
 import Feedback from "./components/Feedback";
 import Predict from "./components/websites/index";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -56,11 +57,10 @@ class App extends React.Component {
               <Predict />
             </Route>
             <Route path="/">
-              <Dash />
+              <Home />
             </Route>
           </Switch>
         </Router>
-        <Feedback />
       </div>
     );
   }

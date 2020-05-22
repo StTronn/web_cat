@@ -15,7 +15,11 @@ const Cointainer = styled.div`
     ". ."
     "b b";
 `;
-
+const InfoCointainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`;
 //card ,card_cointainer,border
 
 class ClusterInfo extends React.Component {
@@ -75,6 +79,7 @@ class ClusterInfo extends React.Component {
     } = this.state;
 
     if (selectedClusterId) {
+      selectedClusterId = selectedClusterId - 1;
       let clusterRankarr = clusterInfo[selectedClusterId].rank;
       let clusterSizearr = clusterInfo[selectedClusterId].size;
       let clusterSize = clusterInfo[selectedClusterId].size[day];
@@ -82,14 +87,15 @@ class ClusterInfo extends React.Component {
         clusterInfo[selectedClusterId].size[day] -
         clusterInfo[selectedClusterId].size[day - 1];
       let clusterRank = Math.round(
-        clusterInfo[selectedClusterId].rank[day - 1] /
-          clusterInfo[selectedClusterId].size[day - 1]
+        clusterInfo[selectedClusterId].rank[day] /
+          clusterInfo[selectedClusterId].size[day]
       );
       let clusterRankChange =
+        clusterRank -
         Math.round(
-          clusterInfo[selectedClusterId].rank[day] /
-            clusterInfo[selectedClusterId].size[day]
-        ) - clusterRank;
+          clusterInfo[selectedClusterId].rank[day - 1] /
+            clusterInfo[selectedClusterId].size[day - 1]
+        );
 
       return (
         <div key={selectedClusterId}>
@@ -146,7 +152,17 @@ class ClusterInfo extends React.Component {
         </div>
       );
     } else {
-      return <></>;
+      return (
+        <InfoCointainer className="animate__animated animate__fadeInDown">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg">
+            <div className="px-6 py-4">
+              <div className="font-normal text-center text-teal-600 text-xl mb-2">
+                Select a Category to get more info
+              </div>
+            </div>
+          </div>
+        </InfoCointainer>
+      );
     }
   }
 }

@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function ({ handleChange, handleClick }) {
+export default function ({ handleChange, handleClick, selectedClusterId }) {
+  let placeholderText = "Search Across all Sites";
+  if (selectedClusterId) {
+    placeholderText = "Search in Category";
+  }
   return (
     <span className="flex w-full  items-center border-b border-b-2 border-gray-500 py-1 ">
       <input
@@ -10,7 +14,7 @@ export default function ({ handleChange, handleClick }) {
         }}
         className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
         type="text"
-        placeholder="https://www.google.com/"
+        placeholder={placeholderText}
         aria-label="url"
       />
       <button

@@ -13,7 +13,7 @@ const ClusterView = ({ cluster_id, selectedClusterId, selectClusterId }) => {
         selectClusterId(cluster_id);
       }}
     >
-      {cluster_id}
+      {cluster_id ? cluster_id : "All"}
     </span>
   );
 };

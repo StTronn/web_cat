@@ -24,6 +24,10 @@ class SitesTable extends React.Component {
   }
   fetchSites = () => {
     let { selectedClusterId, mode, searchText } = this.props;
+    if (selectedClusterId) {
+      selectedClusterId -= 1;
+      console.log("hello cluster");
+    }
     let url = URL;
     if (mode === "all") {
       url += selectedClusterId

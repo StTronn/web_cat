@@ -1,5 +1,6 @@
 import React from "react";
 import SiteRow from "./SiteRow";
+import Pagination from "./Pagination";
 import Spinner from "react-spinkit";
 import styled from "styled-components";
 import { URL } from "../../../../utils";
@@ -20,13 +21,20 @@ class SitesTable extends React.Component {
     this.state = {
       sitesList: [],
       loading: true,
+      page: 1,
+      maxpage: 20,
     };
   }
+
+  changePage = (page) => {
+    this.setState({ page });
+  };
+
   fetchSites = () => {
+    //update maxpage
     let { selectedClusterId, mode, searchText } = this.props;
     if (selectedClusterId) {
       selectedClusterId -= 1;
-      console.log("hello cluster");
     }
     let url = URL;
     if (mode === "all") {
@@ -41,11 +49,9 @@ class SitesTable extends React.Component {
       url += "/search/domain/" + searchText;
     }
     this.setState({ loading: true });
-    console.log(url);
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         this.setState({ sitesList: data, loading: false });
       })
       .catch((error) => {
@@ -53,6 +59,7 @@ class SitesTable extends React.Component {
         this.setState({ loading: false });
       });
   };
+
   componentDidMount() {
     this.fetchSites();
   }
@@ -67,8 +74,8 @@ class SitesTable extends React.Component {
   }
 
   render() {
-    let { sitesList, loading } = this.state;
-    console.log("loading", loading);
+    let { sitesList, loading, maxpage, page } = this.state;
+    console.log("page", page);
     if (!loading) {
       return (
         <div className="flex flex-col m-8">
@@ -97,6 +104,14 @@ class SitesTable extends React.Component {
                 ))}
               </table>
             </div>
+          </div>
+          <div className="mt-4">
+            <Pagination
+              changePage={this.changePage}
+              pages={Array.apply(null, Array(maxpage)).map(function (_, i) {
+                return i;
+              })}
+            />
           </div>
         </div>
       );

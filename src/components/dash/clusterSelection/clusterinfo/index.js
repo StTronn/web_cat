@@ -5,6 +5,7 @@ import InfoCard from "./InfoCard";
 import "./clusterinfo.css";
 import styled from "styled-components";
 import DaySelector from "./DaySelector";
+import SingleDate from "./SingleDate";
 
 const Cointainer = styled.div`
   display: grid;
@@ -99,14 +100,7 @@ class ClusterInfo extends React.Component {
 
       return (
         <div key={selectedClusterId}>
-          {showRank && showSize && !flipKeyword && (
-            <DaySelector
-              changeDay={this.changeDay}
-              days={Array.apply(null, Array(30)).map(function (_, i) {
-                return i;
-              })}
-            />
-          )}
+          {showRank && showSize && !flipKeyword && <SingleDate />}
           {!flipKeyword && (
             <Cointainer>
               <InfoCard

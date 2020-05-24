@@ -8,6 +8,7 @@ import moment from "moment";
 import SingleDate from "./SingleDate";
 import { URL } from "../../../../utils";
 import _ from "lodash";
+import DaySelector from "./DaySelector";
 import Spinner from "react-spinkit";
 
 const Cointainer = styled.div`
@@ -39,6 +40,8 @@ class ClusterInfo extends React.Component {
       flipKeyword: false,
       day: 1,
       singleDate: moment(),
+      startDate: moment().subtract(10, "day"),
+      endDate: moment(),
       singleDateData: {},
       loading: false,
     };
@@ -148,6 +151,9 @@ class ClusterInfo extends React.Component {
           {showRank && showSize && !flipKeyword && (
             <SingleDate date={singleDate} updateDate={this.changeSingleDate} />
           )}
+
+          {(flipRank || flipRank) && <DaySelector />}
+
           {loading && (
             <Prompt message={<Spinner name="folding-cube" color="teal" />} />
           )}

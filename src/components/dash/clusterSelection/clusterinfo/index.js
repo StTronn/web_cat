@@ -4,8 +4,11 @@ import clusterData from "./clusters.json";
 import InfoCard from "./InfoCard";
 import "./clusterinfo.css";
 import styled from "styled-components";
-import DaySelector from "./DaySelector";
+import moment from "moment";
 import SingleDate from "./SingleDate";
+import { URL } from "../../../../utils";
+import _ from "lodash";
+import Spinner from "react-spinkit";
 
 const Cointainer = styled.div`
   display: grid;
@@ -35,10 +38,43 @@ class ClusterInfo extends React.Component {
       flipSize: false,
       flipKeyword: false,
       day: 1,
+      singleDate: moment(),
+      singleDateData: {},
+      loading: false,
     };
   }
 
   fetchInfo = () => {
+    let { selectedClusterId } = this.props;
+    let { showRank, showSize, flipKeyword, singleDate } = this.state;
+    let url = URL;
+    if (selectedClusterId) {
+      if (showRank && showSize && !flipKeyword) {
+        url +=
+          "/getOneDayClusterData/" +
+          singleDate.format("YYYY-MM-DD") +
+          "/" +
+          selectedClusterId;
+
+        this.setState({ loading: true });
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length !== 0) {
+              this.setState({ singleDateData: data[0], loading: false });
+            } else {
+              this.setState({ singleDateData: {}, loading: false });
+            }
+            console.log("singledate", data, url);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({ loading: false });
+          });
+      } else {
+        //fetch range date
+      }
+    }
     //get cluster id
     //if cluster id is 0 do nothing
     //else fetch
@@ -58,8 +94,13 @@ class ClusterInfo extends React.Component {
     let { flipKeyword } = this.state;
     this.setState({ flipKeyword: !flipKeyword });
   };
+
   changeDay = (day) => {
     this.setState({ day });
+  };
+
+  changeSingleDate = (singleDate) => {
+    this.setState({ singleDate }, this.fetchInfo);
   };
 
   componentDidUpdate(prevProps) {
@@ -67,6 +108,7 @@ class ClusterInfo extends React.Component {
       this.fetchInfo();
     }
   }
+
   render() {
     let { selectedClusterId } = this.props;
     let {
@@ -77,6 +119,9 @@ class ClusterInfo extends React.Component {
       flipRank,
       flipKeyword,
       day,
+      singleDate,
+      singleDateData,
+      loading,
     } = this.state;
 
     if (selectedClusterId) {
@@ -100,15 +145,25 @@ class ClusterInfo extends React.Component {
 
       return (
         <div key={selectedClusterId}>
-          {showRank && showSize && !flipKeyword && <SingleDate />}
-          {!flipKeyword && (
+          {showRank && showSize && !flipKeyword && (
+            <SingleDate date={singleDate} updateDate={this.changeSingleDate} />
+          )}
+          {loading && (
+            <Prompt message={<Spinner name="folding-cube" color="teal" />} />
+          )}
+
+          {!loading && _.isEmpty(singleDateData) && (
+            <Prompt message={"no data for given date"} />
+          )}
+
+          {!flipKeyword && !loading && !_.isEmpty(singleDateData) && (
             <Cointainer>
               <InfoCard
                 flip={flipRank}
                 hide={!showRank}
                 name="Rank"
-                primaryData={clusterRank}
-                secondaryData={clusterRankChange}
+                primaryData={singleDateData.rank}
+                secondaryData={singleDateData.rankChange}
                 handleFlip={this.handleFlip}
                 arr={clusterRankarr}
               />
@@ -116,8 +171,8 @@ class ClusterInfo extends React.Component {
                 flip={flipSize}
                 hide={!showSize}
                 name="Size"
-                primaryData={clusterSize}
-                secondaryData={clusterSizeChange}
+                primaryData={singleDateData.size}
+                secondaryData={singleDateData.sizeChange}
                 handleFlip={this.handleFlip}
                 arr={clusterSizearr}
               />
@@ -131,11 +186,11 @@ class ClusterInfo extends React.Component {
               alignItems: "center",
             }}
           >
-            {showRank && showSize && (
+            {showRank && showSize && !loading && !_.isEmpty(singleDateData) && (
               <KeyWordsCard
                 handleFlip={this.handleKeyWordFlip}
                 flip={flipKeyword}
-                keywords={clusterInfo[selectedClusterId].keywords[0]
+                keywords={singleDateData.keywords
                   .split(/(\s+)/)
                   .filter(function (e) {
                     return e.trim().length > 0;
@@ -146,19 +201,23 @@ class ClusterInfo extends React.Component {
         </div>
       );
     } else {
-      return (
-        <InfoCointainer className="animate__animated animate__fadeInDown">
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
-            <div className="px-6 py-4">
-              <div className="font-normal text-center text-teal-600 text-xl mb-2">
-                Select a Category to get more info
-              </div>
-            </div>
-          </div>
-        </InfoCointainer>
-      );
+      return <Prompt message="Select a Category to get more info" />;
     }
   }
 }
+
+const Prompt = ({ message }) => {
+  return (
+    <InfoCointainer className="animate__animated animate__fadeInDown my-16">
+      <div className="max-w-sm rounded overflow-hidden shadow-lg">
+        <div className="px-6 py-4">
+          <div className="font-normal text-center text-teal-600 text-xl mb-2">
+            {message}
+          </div>
+        </div>
+      </div>
+    </InfoCointainer>
+  );
+};
 
 export default ClusterInfo;

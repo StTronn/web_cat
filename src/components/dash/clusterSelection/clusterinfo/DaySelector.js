@@ -33,7 +33,6 @@ class DaySelector extends React.Component {
     let dirClass = "";
     if (dir === 1) dirClass = "animate__animated animate__fadeInRight";
     if (dir === -1) dirClass = "animate__animated animate__fadeInLeft";
-    console.log(this.state, days);
 
     return (
       <div className="flex justify-center animate__animated animate__fadeInDown mb-4">

@@ -13,8 +13,10 @@ class BarInfo extends React.Component {
   }
 
   handleDayInput = (event, box) => {
+    let { arr } = this.props;
     let input = event.target.value;
-    if (input < 1 || input > 30) this.setState({ [box + "input"]: input });
+    if (input < 1 || input > arr.length - 1)
+      this.setState({ [box + "input"]: input });
     else this.setState({ [box]: input, [box + "input"]: input });
   };
 

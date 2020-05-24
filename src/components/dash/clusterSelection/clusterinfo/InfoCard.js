@@ -1,6 +1,8 @@
 import React from "react";
 import LineChart from "./LineChart";
 import BarInfo from "./BarInfo";
+import { Prompt } from "./index";
+import _ from "lodash";
 
 const InfoCard = ({
   name,
@@ -10,6 +12,8 @@ const InfoCard = ({
   hide,
   handleFlip,
   arr,
+  loading,
+  data,
 }) => {
   let downClassName = " bg-red-300 text-sm ml-2 rounded-lg p-1";
   let upClassName = " bg-teal-300 text-sm ml-2 rounded-lg p-1";
@@ -48,39 +52,71 @@ const InfoCard = ({
         </div>
       </span>
     );
-  else return <FlipedInfo handleFlip={handleFlip} name={name} arr={arr} />;
+  else
+    return (
+      <FlipedInfo
+        loading={loading}
+        data={data}
+        handleFlip={handleFlip}
+        name={name}
+        arr={arr}
+      />
+    );
 };
 
-const FlipedInfo = ({ handleFlip, name, arr }) => {
-  return (
-    <>
-      <div
-        className="animate__animated animate__flipInX w-full mx-4"
-        style={{
-          display: "grid",
-          justifyItems: "center",
-          height: "60vh",
-        }}
-      >
-        <LineChart arr={arr} />
-      </div>
-      <div className="animate__animated animate__flipInX w-full mx-4">
-        <BarInfo arr={arr} />
-      </div>
-      <div style={{ gridArea: "b" }}>
-        <h2 className="mb-4">{name}</h2>
-        <button
-          style={{ width: "40px", gridArea: "b" }}
-          onClick={() => {
-            handleFlip(name);
+const FlipedInfo = ({ handleFlip, name, loading, data }) => {
+  let arr = _.map(data, name);
+  console.log("flip", data, loading);
+  if (data.length !== 0) {
+    return (
+      <>
+        <div
+          className="animate__animated animate__flipInX w-full mx-4"
+          style={{
+            display: "grid",
+            justifyItems: "center",
+            height: "60vh",
           }}
-          class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
         >
-          X
-        </button>
-      </div>
-    </>
-  );
+          <LineChart arr={arr} />
+        </div>
+        <div className="animate__animated animate__flipInX w-full mx-4">
+          <BarInfo arr={arr} />
+        </div>
+        <div style={{ gridArea: "b" }}>
+          <h2 className="mb-4">{name}</h2>
+          <button
+            style={{ width: "40px", gridArea: "b" }}
+            onClick={() => {
+              handleFlip(name);
+            }}
+            class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
+          >
+            X
+          </button>
+        </div>
+      </>
+    );
+  } else
+    return (
+      <>
+        <div style={{ gridArea: "t" }}>
+          <Prompt message="Nothing to show " />
+        </div>
+        <div style={{ gridArea: "b" }}>
+          <h2 className="mb-4">{name}</h2>
+          <button
+            style={{ width: "40px", gridArea: "b" }}
+            onClick={() => {
+              handleFlip(name);
+            }}
+            class="bg-teal-500  hover:bg-teal-700 text-white font- py-2 px-4 rounded-full"
+          >
+            X
+          </button>
+        </div>
+      </>
+    );
 };
 
 export default InfoCard;

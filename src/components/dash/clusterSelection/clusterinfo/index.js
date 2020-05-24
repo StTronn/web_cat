@@ -17,7 +17,7 @@ const Cointainer = styled.div`
   justify-items: center;
   margin-bottom: 40px;
   grid-template-areas:
-    ". ."
+    "t t"
     "b b";
 `;
 const InfoCointainer = styled.div`
@@ -40,16 +40,24 @@ class ClusterInfo extends React.Component {
       flipKeyword: false,
       day: 1,
       singleDate: moment(),
-      startDate: moment().subtract(10, "day"),
+      startDate: moment().subtract(10, "days"),
       endDate: moment(),
       singleDateData: {},
+      rangeDateData: [],
       loading: false,
     };
   }
 
   fetchInfo = () => {
     let { selectedClusterId } = this.props;
-    let { showRank, showSize, flipKeyword, singleDate } = this.state;
+    let {
+      showRank,
+      showSize,
+      flipKeyword,
+      singleDate,
+      startDate,
+      endDate,
+    } = this.state;
     let url = URL;
     if (selectedClusterId) {
       if (showRank && showSize && !flipKeyword) {
@@ -68,14 +76,34 @@ class ClusterInfo extends React.Component {
             } else {
               this.setState({ singleDateData: {}, loading: false });
             }
-            console.log("singledate", data, url);
           })
           .catch((error) => {
             console.log(error);
-            this.setState({ loading: false });
+            this.setState({ singleDateData: {}, loading: false });
           });
       } else {
-        //fetch range date
+        url +=
+          "/getClusterData/" +
+          startDate.format("YYYY-MM-DD") +
+          "/" +
+          endDate.format("YYYY-MM-DD") +
+          "/" +
+          selectedClusterId;
+
+        this.setState({ loading: true });
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length !== 0) {
+              this.setState({ rangeDateData: data, loading: false });
+            } else {
+              this.setState({ rangeDateData: [], loading: false });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({ rangeDateData: [], loading: false });
+          });
       }
     }
     //get cluster id
@@ -88,7 +116,7 @@ class ClusterInfo extends React.Component {
 
   handleFlip = (w) => {
     let { flipRank, flipSize, showRank, showSize } = this.state;
-    if (w === "Rank")
+    if (w === "rank")
       this.setState({ flipRank: !flipRank, showSize: !showSize });
     else this.setState({ flipSize: !flipSize, showRank: !showRank });
   };
@@ -103,8 +131,19 @@ class ClusterInfo extends React.Component {
   };
 
   changeSingleDate = (singleDate) => {
-    this.setState({ singleDate }, this.fetchInfo);
+    let endDate = singleDate.clone().add(10, "days");
+    this.setState(
+      {
+        singleDate: singleDate,
+        startDate: singleDate,
+        endDate: endDate,
+      },
+      this.fetchInfo
+    );
   };
+
+  handleDateRangeChange = ({ startDate, endDate }) =>
+    this.setState({ startDate, endDate }, this.fetchInfo);
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
@@ -124,35 +163,29 @@ class ClusterInfo extends React.Component {
       day,
       singleDate,
       singleDateData,
+      rangeDateData,
       loading,
+      startDate,
+      endDate,
     } = this.state;
 
     if (selectedClusterId) {
       selectedClusterId = selectedClusterId - 1;
       let clusterRankarr = clusterInfo[selectedClusterId].rank;
       let clusterSizearr = clusterInfo[selectedClusterId].size;
-      let clusterSize = clusterInfo[selectedClusterId].size[day];
-      let clusterSizeChange =
-        clusterInfo[selectedClusterId].size[day] -
-        clusterInfo[selectedClusterId].size[day - 1];
-      let clusterRank = Math.round(
-        clusterInfo[selectedClusterId].rank[day] /
-          clusterInfo[selectedClusterId].size[day]
-      );
-      let clusterRankChange =
-        clusterRank -
-        Math.round(
-          clusterInfo[selectedClusterId].rank[day - 1] /
-            clusterInfo[selectedClusterId].size[day - 1]
-        );
-
       return (
         <div key={selectedClusterId}>
           {showRank && showSize && !flipKeyword && (
             <SingleDate date={singleDate} updateDate={this.changeSingleDate} />
           )}
 
-          {(flipRank || flipRank) && <DaySelector />}
+          {(flipRank || flipRank) && (
+            <DaySelector
+              startDate={startDate}
+              endDate={endDate}
+              updateDate={this.handleDateRangeChange}
+            />
+          )}
 
           {loading && (
             <Prompt message={<Spinner name="folding-cube" color="teal" />} />
@@ -167,20 +200,24 @@ class ClusterInfo extends React.Component {
               <InfoCard
                 flip={flipRank}
                 hide={!showRank}
-                name="Rank"
+                name="rank"
                 primaryData={singleDateData.rank}
                 secondaryData={singleDateData.rankChange}
                 handleFlip={this.handleFlip}
                 arr={clusterRankarr}
+                loading={loading}
+                data={rangeDateData}
               />
               <InfoCard
                 flip={flipSize}
                 hide={!showSize}
-                name="Size"
+                name="size"
                 primaryData={singleDateData.size}
                 secondaryData={singleDateData.sizeChange}
                 handleFlip={this.handleFlip}
                 arr={clusterSizearr}
+                loading={loading}
+                data={rangeDateData}
               />
             </Cointainer>
           )}
@@ -212,9 +249,9 @@ class ClusterInfo extends React.Component {
   }
 }
 
-const Prompt = ({ message }) => {
+export const Prompt = ({ message }) => {
   return (
-    <InfoCointainer className="animate__animated animate__fadeInDown my-16">
+    <InfoCointainer className="animate__animated animate__fadeInDown my-16 min-w-16">
       <div className="max-w-sm rounded overflow-hidden shadow-lg">
         <div className="px-6 py-4">
           <div className="font-normal text-center text-teal-600 text-xl mb-2">

@@ -18,6 +18,7 @@ const siterow = ({ site_obj }) => {
               <a
                 href={site_obj.url}
                 className="no-underline hover:underline text-teal-700 "
+                target="_blank"
               >
                 {site_obj.url}
               </a>

@@ -8,7 +8,6 @@ import _ from "lodash";
 
 const LoadingCointainer = styled.div`
   display: grid;
-
   height: 60vh;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -56,9 +55,14 @@ class SitesTable extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log("data", data);
-        if (!_.isObject(data))
+        if (Array.isArray(data)) {
           this.setState({ sitesList: data, loading: false });
-        else this.setState({ sitesList: data.sites, loading: false });
+        } else
+          this.setState({
+            sitesList: data.sites,
+            maxpage: data.max_page,
+            loading: false,
+          });
       })
       .catch((error) => {
         console.log(error);

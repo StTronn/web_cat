@@ -4,10 +4,12 @@ import Pagination from "./Pagination";
 import Spinner from "react-spinkit";
 import styled from "styled-components";
 import { URL } from "../../../../utils";
+import _ from "lodash";
 
 const LoadingCointainer = styled.div`
   display: grid;
-  width: 40vh;
+
+  height: 60vh;
   padding-top: 40px;
   padding-bottom: 40px;
   align-items: center;
@@ -27,20 +29,21 @@ class SitesTable extends React.Component {
   }
 
   changePage = (page) => {
-    this.setState({ page });
+    this.setState({ page }, this.fetchSites);
   };
 
   fetchSites = () => {
     //update maxpage
     let { selectedClusterId, mode, searchText } = this.props;
+    let { page } = this.state;
     if (selectedClusterId) {
       selectedClusterId -= 1;
     }
     let url = URL;
     if (mode === "all") {
       url += selectedClusterId
-        ? "/getclusterurl/" + selectedClusterId
-        : "/getclusterurl/";
+        ? "/getclusterurl/" + selectedClusterId + "/page/" + (page - 1)
+        : "/getclusterurl/" + "page/" + (page - 1);
     } else if (mode === "query") {
       url += selectedClusterId
         ? "/search/query/" + searchText + "/clusterno/" + selectedClusterId
@@ -52,7 +55,10 @@ class SitesTable extends React.Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ sitesList: data, loading: false });
+        console.log("data", data);
+        if (!_.isObject(data))
+          this.setState({ sitesList: data, loading: false });
+        else this.setState({ sitesList: data.sites, loading: false });
       })
       .catch((error) => {
         console.log(error);

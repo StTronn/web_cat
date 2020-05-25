@@ -147,47 +147,13 @@ export default class Home extends React.Component {
                   <i className="fas fa-sitemap text-xl" />
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  CSS Components
+                  Market Analysis
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
                   Every element that you need in a product comes built in as a
                   component. All components fit perfectly with each other and
                   can have different colours.
                 </p>
-                <div className="block pb-6">
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Buttons
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Inputs
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Labels
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Menus
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Navbars
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Pagination
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Progressbars
-                  </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2">
-                    Typography
-                  </span>
-                </div>
-                <a
-                  className="font-bold text-gray-800 hover:text-gray-600"
-                  style={{ transition: "all .15s ease" }}
-                  href="/learning-lab/tailwind-starter-kit/documentation/alerts"
-                >
-                  View All{/* */}{" "}
-                  <i className="fa fa-angle-double-right ml-1 leading-relaxed" />
-                </a>
               </div>
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto mt-32">
                 <div className="relative flex flex-col min-w-0 w-full mb-6 mt-48 md:mt-0">

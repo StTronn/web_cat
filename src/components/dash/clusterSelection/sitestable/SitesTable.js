@@ -35,9 +35,6 @@ class SitesTable extends React.Component {
     //update maxpage
     let { selectedClusterId, mode, searchText } = this.props;
     let { page } = this.state;
-    if (selectedClusterId) {
-      selectedClusterId -= 1;
-    }
     let url = URL;
     if (mode === "all") {
       url += selectedClusterId
@@ -79,7 +76,7 @@ class SitesTable extends React.Component {
       prevProps.mode !== this.props.mode ||
       prevProps.selectedClusterId !== this.props.selectedClusterId
     ) {
-      this.fetchSites();
+      this.setState({ page: 1 }, this.fetchSites);
     }
   }
 
@@ -117,6 +114,7 @@ class SitesTable extends React.Component {
           </div>
           <div className="mt-4">
             <Pagination
+              page={page}
               changePage={this.changePage}
               pages={Array.apply(null, Array(maxpage)).map(function (_, i) {
                 return i;

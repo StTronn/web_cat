@@ -27,7 +27,7 @@ export default class Pagination extends React.Component {
   };
 
   render() {
-    let { pages, changePage } = this.props;
+    let { pages, changePage, page } = this.props;
     let { start, end, dir } = this.state;
     let dirClass = "";
     if (dir === 1) dirClass = "animate__animated animate__fadeInRight";
@@ -56,10 +56,14 @@ export default class Pagination extends React.Component {
                 changePage(e + 1);
               }}
               key={e + i}
+              page={page}
               type="button"
               class={
-                "-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 " +
-                dirClass
+                e + 1 === page
+                  ? "-ml-px relative inline-flex items-center px-4 py-2 bg-teal-500 border border-teal-500 text-white text-sm leading-5 font-medium text-white-700 hover:text-white focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-teal-500 transition ease-in-out duration-150 " +
+                    dirClass
+                  : "-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 " +
+                    dirClass
               }
             >
               {e + 1}

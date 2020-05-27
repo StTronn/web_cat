@@ -27,10 +27,6 @@ class SitesTable extends React.Component {
     };
   }
 
-  changePage = (page) => {
-    this.setState({ page }, this.fetchSites);
-  };
-
   fetchSites = () => {
     //update maxpage
     let { selectedClusterId, mode, searchText } = this.props;
@@ -81,8 +77,7 @@ class SitesTable extends React.Component {
   }
 
   render() {
-    let { sitesList, loading, maxpage, page } = this.state;
-    console.log("page", page);
+    let { sitesList, loading, maxpage, page, changePage } = this.props;
     if (!loading) {
       return (
         <div className="flex flex-col m-8">
@@ -112,7 +107,7 @@ class SitesTable extends React.Component {
           <div className="mt-4">
             <Pagination
               page={page}
-              changePage={this.changePage}
+              changePage={changePage}
               pages={Array.apply(null, Array(maxpage)).map(function (_, i) {
                 return i;
               })}

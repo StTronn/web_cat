@@ -3,6 +3,7 @@ import SearchCluster from "./SearchCluster";
 import ClusterList from "./ClusterList";
 import SitesTable from "./sitestable/SitesTable";
 import ClusterInfo from "./clusterinfo/index";
+import { URL } from "../../../utils";
 
 class ClusterSelection extends React.Component {
   constructor(props) {
@@ -14,8 +15,52 @@ class ClusterSelection extends React.Component {
       searchMode: "query",
       searchText: "",
       clusterIds: [],
+      sitesList: [],
+      loading: true,
+      page: 1,
+      maxpage: 20,
     };
   }
+
+  fetchSites = () => {
+    //update maxpage
+    let { selectedClusterId, mode, searchText, page } = this.state;
+    if (mode !== "all" && searchText === "") return;
+    let url = URL;
+    if (mode === "all") {
+      url += selectedClusterId
+        ? "/getclusterurl/" + selectedClusterId + "/page/" + (page - 1)
+        : "/getclusterurl/" + "page/" + (page - 1);
+    } else if (mode === "query") {
+      url += selectedClusterId
+        ? "/search/query/" + searchText + "/clusterno/" + selectedClusterId
+        : "/search/query/" + searchText;
+    } else {
+      url += "/search/domain/" + searchText;
+    }
+    this.setState({ loading: true });
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        if (Array.isArray(data)) {
+          this.setState({ sitesList: data, loading: false });
+        } else
+          this.setState({
+            sitesList: data.sites,
+            maxpage: data.max_page,
+            loading: false,
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
+      });
+  };
+
+  changePage = (page) => {
+    this.setState({ page }, this.fetchSites);
+  };
 
   componentDidMount() {
     //dummy cluster list
@@ -25,17 +70,21 @@ class ClusterSelection extends React.Component {
     }
 
     this.setState({ clusterIds: arr });
+    this.fetchSites();
   }
 
   handleChangeInput = (event) => {
-    let { mode } = this.state;
-    if (event.target.value === "") mode = "all";
-    this.setState({ searchText: event.target.value, mode });
+    if (event.target.value === "")
+      this.setState(
+        { searchText: event.target.value, mode: "all", page: 1 },
+        this.fetchSites
+      );
+    else this.setState({ searchText: event.target.value });
   };
 
   handleSubmit = () => {
     let { searchMode } = this.state;
-    this.setState({ mode: searchMode });
+    this.setState({ mode: searchMode }, this.fetchSites);
   };
 
   handleSearchMode = (searchMode) => {
@@ -43,7 +92,10 @@ class ClusterSelection extends React.Component {
   };
 
   selectClusterId = (id) => {
-    this.setState({ selectedClusterId: id, mode: "all" });
+    this.setState(
+      { selectedClusterId: id, mode: "all", searchText: "", page: 1 },
+      this.fetchSites
+    );
   };
 
   render() {
@@ -53,8 +105,12 @@ class ClusterSelection extends React.Component {
       mode,
       searchText,
       searchMode,
+      sitesList,
+      loading,
+      maxpage,
+      page,
     } = this.state;
-    console.log(mode, searchMode);
+    console.log("load", loading);
     return (
       <>
         <ClusterList
@@ -69,11 +125,17 @@ class ClusterSelection extends React.Component {
           handleSearchMode={this.handleSearchMode}
           searchMode={searchMode}
           selectedClusterId={selectedClusterId}
+          searchText={searchText}
         />
         <SitesTable
           selectedClusterId={selectedClusterId}
           mode={mode}
           searchText={searchText}
+          sitesList={sitesList}
+          loading={loading}
+          maxpage={maxpage}
+          page={page}
+          changePage={this.changePage}
         />
       </>
     );

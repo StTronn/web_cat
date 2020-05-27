@@ -13,6 +13,7 @@ class SearchCluster extends React.Component {
       handleSearchMode,
       searchMode,
       selectedClusterId,
+      searchText,
     } = this.props;
     return (
       <div
@@ -38,6 +39,7 @@ class SearchCluster extends React.Component {
           selectedClusterId={selectedClusterId}
           handleChange={handleChange}
           handleClick={handleSubmit}
+          searchText={searchText}
         />
         <span class="">
           <button
@@ -46,9 +48,9 @@ class SearchCluster extends React.Component {
             }}
             className={
               searchMode === "query" ? selectedClassName : normalClassName
-            }
+            
           >
-            Query
+            Keywords
           </button>
           <button
             onClick={() => {
@@ -58,7 +60,7 @@ class SearchCluster extends React.Component {
               searchMode === "domain" ? selectedClassName : normalClassName
             }
           >
-            Org Name
+            Domain Name
           </button>
         </span>
       </div>

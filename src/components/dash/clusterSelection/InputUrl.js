@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function ({ handleChange, handleClick, selectedClusterId }) {
+export default function ({
+  handleChange,
+  handleClick,
+  selectedClusterId,
+  searchText,
+}) {
   let placeholderText = "Search Across all Sites";
   if (selectedClusterId) {
     placeholderText = "Search in Category";
@@ -12,6 +17,7 @@ export default function ({ handleChange, handleClick, selectedClusterId }) {
         onKeyDown={(e) => {
           handleEnter(e, handleClick);
         }}
+        value={searchText}
         className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
         type="text"
         placeholder={placeholderText}

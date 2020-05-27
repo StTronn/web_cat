@@ -68,6 +68,7 @@ class ClusterInfo extends React.Component {
           selectedClusterId;
 
         this.setState({ loading: true });
+        console.log("hit url ", url);
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
@@ -146,7 +147,7 @@ class ClusterInfo extends React.Component {
     this.setState({ startDate, endDate }, this.fetchInfo);
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
+    if (prevProps.selectedClusterId !== this.props.selectedClusterId) {
       this.fetchInfo();
     }
   }

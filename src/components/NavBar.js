@@ -24,16 +24,25 @@ export default function () {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline">
                   <Link
+                    to="/"
+                    className={path === "/" ? selectedClass : normalClass}
+                  >
+                    Home
+                  </Link>
+                  <Link
                     to="/dash"
                     className={path === "/dash" ? selectedClass : normalClass}
                   >
                     Dashboard
                   </Link>
+
                   <Link
-                    to="/"
-                    className={path === "/" ? selectedClass : normalClass}
+                    to="/websites"
+                    className={
+                      path === "/websites" ? selectedClass : normalClass
+                    }
                   >
-                    Home
+                    websites
                   </Link>
                   <Link
                     to="/overview"
@@ -42,14 +51,6 @@ export default function () {
                     }
                   >
                     Overview
-                  </Link>
-                  <Link
-                    to="/websites"
-                    className={
-                      path === "/websites" ? selectedClass : normalClass
-                    }
-                  >
-                    websites
                   </Link>
                 </div>
               </div>

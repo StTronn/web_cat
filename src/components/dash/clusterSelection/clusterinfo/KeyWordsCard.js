@@ -1,5 +1,6 @@
 import React from "react";
 import KeyWord from "./KeyWord";
+import GoogleTrends from "./GoogleTrends";
 
 class KeyWordsCard extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class KeyWordsCard extends React.Component {
     } else {
       return (
         <>
-          hello
+          <GoogleTrends word="bitcoin" />
           <button
             style={{ width: "40px", gridArea: "b" }}
             onClick={handleFlip}

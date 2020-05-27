@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Dash from "./components/dash/index";
+import Overview from "./components/Overview/index";
 import Home from "./components/Home/index";
 import Feedback from "./components/Feedback";
 import Predict from "./components/websites/index";
@@ -55,6 +56,9 @@ class App extends React.Component {
             </Route>
             <Route path="/websites">
               <Predict />
+            </Route>
+            <Route path="/overview">
+              <Overview />
             </Route>
             <Route path="/">
               <Home />

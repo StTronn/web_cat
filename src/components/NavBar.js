@@ -37,20 +37,20 @@ export default function () {
                   </Link>
 
                   <Link
-                    to="/websites"
-                    className={
-                      path === "/websites" ? selectedClass : normalClass
-                    }
-                  >
-                    websites
-                  </Link>
-                  <Link
                     to="/overview"
                     className={
                       path === "/overview" ? selectedClass : normalClass
                     }
                   >
                     Overview
+                  </Link>
+                  <Link
+                    to="/websites"
+                    className={
+                      path === "/websites" ? selectedClass : normalClass
+                    }
+                  >
+                    Websites
                   </Link>
                 </div>
               </div>

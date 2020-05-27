@@ -74,7 +74,7 @@ class App extends React.Component {
     if (searching === true) prompt = "Looking for result";
     else if (searched === false) prompt = "Type a url to get info";
     else if (keywords.length === 0 && websites.length === 0) prompt = status;
-    else prompt = "cluster " + clusterno;
+    else prompt = "Cluster " + clusterno;
     if (!searching) {
       return (
         <Cointainer>

@@ -48,7 +48,7 @@ class SearchCluster extends React.Component {
             }}
             className={
               searchMode === "query" ? selectedClassName : normalClassName
-            
+            }
           >
             Keywords
           </button>
@@ -60,7 +60,7 @@ class SearchCluster extends React.Component {
               searchMode === "domain" ? selectedClassName : normalClassName
             }
           >
-            Domain Name
+            Domain
           </button>
         </span>
       </div>

@@ -27,55 +27,6 @@ class SitesTable extends React.Component {
     };
   }
 
-  fetchSites = () => {
-    //update maxpage
-    let { selectedClusterId, mode, searchText } = this.props;
-    let { page } = this.state;
-    let url = URL;
-    if (mode === "all") {
-      url += selectedClusterId
-        ? "/getclusterurl/" + selectedClusterId + "/page/" + (page - 1)
-        : "/getclusterurl/" + "page/" + (page - 1);
-    } else if (mode === "query") {
-      url += selectedClusterId
-        ? "/search/query/" + searchText + "/clusterno/" + selectedClusterId
-        : "/search/query/" + searchText;
-    } else {
-      url += "/search/domain/" + searchText;
-    }
-    this.setState({ loading: true });
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data", data);
-        if (Array.isArray(data)) {
-          this.setState({ sitesList: data, loading: false });
-        } else
-          this.setState({
-            sitesList: data.sites,
-            maxpage: data.max_page,
-            loading: false,
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
-  };
-
-  componentDidMount() {
-    this.fetchSites();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.mode !== this.props.mode ||
-      prevProps.selectedClusterId !== this.props.selectedClusterId
-    ) {
-      this.setState({ page: 1 }, this.fetchSites);
-    }
-  }
-
   render() {
     let { sitesList, loading, maxpage, page, changePage } = this.props;
     if (!loading) {

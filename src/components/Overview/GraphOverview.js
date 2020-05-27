@@ -18,12 +18,18 @@ const Cointainer = styled.div`
   align-items: center;
   justify-items: center;
 `;
+
 const LoadingCointainer = styled.div`
   display: grid;
   height: 40vh;
   align-items: center;
   justify-items: center;
 `;
+
+const ButtonCointainer = styled.div`
+  display: grid;
+`;
+
 export default class OverviewGraph extends React.Component {
   state = {
     mode: "Rank", //2 modes Rank,Size
@@ -48,6 +54,10 @@ export default class OverviewGraph extends React.Component {
       });
   };
 
+  handleMode = (mode) => {
+    this.setState({ mode }, this.fetchdata);
+  };
+
   componentDidMount() {
     this.fetchdata();
   }
@@ -55,7 +65,7 @@ export default class OverviewGraph extends React.Component {
   render() {
     const COLORS = ["#38A169", "#E53E3E", "#FFBB28", "#FF8042"];
 
-    let { data } = this.state;
+    let { data, mode } = this.state;
     data = data.map((entry) => {
       return {
         cluster_no: entry.cluster_no,
@@ -68,6 +78,7 @@ export default class OverviewGraph extends React.Component {
     if (data.length !== 0) {
       return (
         <Cointainer>
+          <Button mode={mode} handleMode={this.handleMode} />
           <BarChart
             width={900}
             layout="vertical"
@@ -97,4 +108,32 @@ export default class OverviewGraph extends React.Component {
       );
     }
   }
+}
+
+function Button({ mode, handleMode }) {
+  let selectedClass =
+    "w-32 bg-white tracking-wide text-gray-800 font-bold rounded-sm border-b-4 border-teal-500 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center";
+  let normalClass =
+    "w-32 bg-white tracking-wide text-gray-800 font-bold rounded-sm border-b-4 hover:border-teal-600 hover:bg-teal-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center";
+
+  return (
+    <div className="flex my-8">
+      <div className="m-3">
+        <button
+          onClick={() => handleMode("Rank")}
+          className={mode === "Rank" ? selectedClass : normalClass}
+        >
+          <span className="mx-auto">Rank</span>
+        </button>
+      </div>
+      <div className="m-3">
+        <button
+          onClick={() => handleMode("Size")}
+          className={mode === "Size" ? selectedClass : normalClass}
+        >
+          <span className="mx-auto">Size</span>
+        </button>
+      </div>
+    </div>
+  );
 }

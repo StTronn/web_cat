@@ -1,6 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 export default function () {
+  let path = useLocation().pathname;
+  let selectedClass =
+    "ml-4 px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700";
+  let normalClass =
+    "ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700";
+
   return (
     <div style={{ width: "100vw" }}>
       <nav className="bg-gray-800">
@@ -18,25 +25,29 @@ export default function () {
                 <div className="ml-10 flex items-baseline">
                   <Link
                     to="/dash"
-                    className="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
+                    className={path === "/dash" ? selectedClass : normalClass}
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/"
-                    className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                    className={path === "/" ? selectedClass : normalClass}
                   >
                     Home
                   </Link>
                   <Link
                     to="/overview"
-                    className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                    className={
+                      path === "/overview" ? selectedClass : normalClass
+                    }
                   >
                     Overview
                   </Link>
                   <Link
                     to="/websites"
-                    className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                    className={
+                      path === "/websites" ? selectedClass : normalClass
+                    }
                   >
                     websites
                   </Link>

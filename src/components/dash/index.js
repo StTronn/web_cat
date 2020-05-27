@@ -42,7 +42,7 @@ class Dash extends React.Component {
                     </div>
                     <div className="ml-4">
                       <h5 className="text-lg leading-6 font-medium text-gray-900">
-                        Find what's intrensting
+                        Find what's interesting
                       </h5>
                       <p className="mt-2 text-base leading-6 text-gray-500">
                         We have a wide range of different categories for you to

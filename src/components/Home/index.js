@@ -163,7 +163,7 @@ export default class Home extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center pt-32">
+            <div className="flex flex-wrap items-center pt-8">
               <div className="w-full md:w-6/12 px-4 mr-auto ml-auto mt-32"></div>
               <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
                 <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">

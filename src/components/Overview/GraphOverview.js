@@ -11,6 +11,7 @@ import {
   Cell,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 const Cointainer = styled.div`
@@ -39,7 +40,7 @@ export default class OverviewGraph extends React.Component {
 
   fetchdata = () => {
     let { mode, loading } = this.state;
-    let url = URL + "/getAllClusterDataOf" + mode + "/2020-05-02";
+    let url = URL + "/getAllClusterDataOf" + mode + "/2020-05-09";
 
     this.setState({ loading: true });
     fetch(url)
@@ -79,24 +80,48 @@ export default class OverviewGraph extends React.Component {
       return (
         <Cointainer>
           <Button mode={mode} handleMode={this.handleMode} />
-          <BarChart
-            width={900}
-            layout="vertical"
-            height={3300}
-            data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <Legend />
-            <XAxis type="number" />
-            <YAxis type="category" dataKey="cluster_name" />
-            <Tooltip />
-            <Bar dataKey="Current" fill="#2A4365" />
-            <Bar dataKey="Change">
-              {data.map((entry, index) => {
-                return <Cell fill={entry.color} key={index} />;
-              })}
-            </Bar>
-          </BarChart>
+          <ResponsiveContainer width={1000} height={3400}>
+            <BarChart
+              width={900}
+              layout="vertical"
+              height={3300}
+              data={data}
+              margin={{ top: 50, right: 30, left: 20, bottom: 5 }}
+            >
+              <Legend
+                wrapperStyle={{ top: 0, left: 25 }}
+                payload={[
+                  {
+                    id: "pr",
+                    value: mode,
+                    type: "square",
+                    color: "#2A4365",
+                  },
+                  {
+                    id: "pc",
+                    value: " + " + mode + " change",
+                    type: "square",
+                    color: COLORS[0],
+                  },
+                  {
+                    id: "nc",
+                    value: " - " + mode + " change",
+                    type: "square",
+                    color: COLORS[1],
+                  },
+                ]}
+              />
+              <XAxis type="number" />
+              <YAxis type="category" dataKey="cluster_name" />
+              <Tooltip />
+              <Bar name={"Current " + mode} dataKey="Current" fill="#2A4365" />
+              <Bar dataKey="Change">
+                {data.map((entry, index) => {
+                  return <Cell fill={entry.color} key={index} />;
+                })}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </Cointainer>
       );
     } else {

@@ -33,17 +33,15 @@ export default class WidgetGoogleTrends extends React.Component {
     ReactDOM.findDOMNode(_.refs.charts).appendChild(script);
 
     script.onload = function () {
-      //let list = _.state.word.map((e, i) => {
-      // return { keyword: e, geo: "", time: "today 12-m" };
-      //});
-
+      let list = _.state.word.map((e, i) => {
+        return { keyword: e, geo: "", time: "today 12-m" };
+      });
+      list = list.slice(0, 5);
       window.trends.embed.renderExploreWidgetTo(
         ReactDOM.findDOMNode(_.refs.charts),
         "TIMESERIES",
         {
-          comparisonItem: [
-            { keyword: _.state.word, geo: "", time: "today 12-m" },
-          ],
+          comparisonItem: list,
           category: 0,
           property: "",
         },
@@ -64,6 +62,11 @@ export default class WidgetGoogleTrends extends React.Component {
   }
 
   render() {
-    return <div ref="charts" />;
+    return (
+      <div
+        ref="charts"
+        style={{ width: "1200px", display: "inline", margin: "80px 80px" }}
+      />
+    );
   }
 }

@@ -5,7 +5,6 @@ import GoogleTrends from "./GoogleTrends";
 class KeyWordsCard extends React.Component {
   render() {
     let { keywords, flip, handleFlip } = this.props;
-    console.log(keywords);
     if (!flip) {
       return (
         <div className="animate__animated animate__fadeInDown max-w-md rounded overflow-hidden shadow-lg mx-4 my-6 ">
@@ -27,8 +26,8 @@ class KeyWordsCard extends React.Component {
       );
     } else {
       return (
-        <>
-          <GoogleTrends word="bitcoin" />
+        <div>
+          <GoogleTrends word={keywords} />
           <button
             style={{ width: "40px", gridArea: "b" }}
             onClick={handleFlip}
@@ -36,7 +35,7 @@ class KeyWordsCard extends React.Component {
           >
             X
           </button>
-        </>
+        </div>
       );
     }
   }

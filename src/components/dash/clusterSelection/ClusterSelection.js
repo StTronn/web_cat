@@ -110,7 +110,7 @@ class ClusterSelection extends React.Component {
       maxpage,
       page,
     } = this.state;
-    console.log("load", loading);
+    let feilds = ["Url", "Rank", "Change"];
     return (
       <>
         <ClusterList
@@ -136,6 +136,7 @@ class ClusterSelection extends React.Component {
           maxpage={maxpage}
           page={page}
           changePage={this.changePage}
+          feilds={feilds}
         />
       </>
     );

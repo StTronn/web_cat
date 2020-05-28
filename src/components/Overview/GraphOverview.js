@@ -64,7 +64,7 @@ export default class OverviewGraph extends React.Component {
   }
 
   render() {
-    const COLORS = ["#38A169", "#E53E3E", "#FFBB28", "#FF8042"];
+    const COLORS = ["#2C7A7B", "#E53E3E", "#FFBB28", "#FF8042"];
 
     let { data, mode } = this.state;
     data = data.map((entry) => {

@@ -3,7 +3,6 @@ import SiteRow from "./SiteRow";
 import Pagination from "./Pagination";
 import Spinner from "react-spinkit";
 import styled from "styled-components";
-import { URL } from "../../../../utils";
 import _ from "lodash";
 
 const LoadingCointainer = styled.div`
@@ -28,7 +27,7 @@ class SitesTable extends React.Component {
   }
 
   render() {
-    let { sitesList, loading, maxpage, page, changePage } = this.props;
+    let { sitesList, loading, maxpage, page, changePage, feilds } = this.props;
     if (!loading) {
       return (
         <div className="flex flex-col m-8">
@@ -37,20 +36,15 @@ class SitesTable extends React.Component {
               <table className="min-w-full">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Url
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Rank
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Change
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                    {feilds.map((e) => (
+                      <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        {e}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 {sitesList.map((obj, i) => (
-                  <SiteRow key={obj.url} site_obj={obj} />
+                  <SiteRow feilds={feilds} key={obj.url} site_obj={obj} />
                 ))}
               </table>
             </div>

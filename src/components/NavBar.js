@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import WalkoverIcon from "../assets/Walkover-iconsvg.png";
 
 export default function () {
   let path = useLocation().pathname;
@@ -17,7 +18,7 @@ export default function () {
               <div className="flex-shrink-0">
                 <img
                   className="h-8 w-8"
-                  src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/adobeillustrator.svg"
+                  src={WalkoverIcon}
                   alt="Workflow logo"
                 />
               </div>

@@ -181,33 +181,18 @@ const About = () => (
             <div className="px-6">
               <img
                 alt="..."
+                style={{ width: "120px", height: "120px" }}
                 src="https://github.com/Nitss10/aboutUs/raw/master/aman.png"
                 className="shadow-lg rounded-full max-w-full mx-auto"
-                style={{ maxWidth: 120 }}
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Aman Gupta</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold"></p>
-                <div className="mt-6">
-                  <button
-                    className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-twitter" />
-                  </button>
-                  <button
-                    className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-facebook-square" />
-                  </button>
-                  <button
-                    className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-dribbble" />
-                  </button>
-                </div>
+                <a
+                  href="mailto:kamangupta52@gmail.com"
+                  className="mt-1 text-sm text-gray-500 font-semibold"
+                >
+                  kamangupta52@gmail.com
+                </a>
               </div>
             </div>
           </div>
@@ -218,31 +203,16 @@ const About = () => (
                 alt="..."
                 src="https://github.com/Nitss10/aboutUs/raw/master/eesh.jpg"
                 className="shadow-lg rounded-full max-w-full mx-auto"
-                style={{ maxWidth: 120 }}
+                style={{ width: "120px", height: "120px" }}
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Eeshwari Bhatore</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold"></p>
-                <div className="mt-6">
-                  <button
-                    className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-twitter" />
-                  </button>
-                  <button
-                    className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-facebook-square" />
-                  </button>
-                  <button
-                    className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-dribbble" />
-                  </button>
-                </div>
+                <a
+                  href="mailto:ebhatore@gmail.com"
+                  className="mt-1 text-sm text-gray-500 font-semibold"
+                >
+                  ebhatore@gmail.com
+                </a>
               </div>
             </div>
           </div>
@@ -252,25 +222,18 @@ const About = () => (
                 alt="..."
                 src="https://github.com/Nitss10/aboutUs/raw/master/niti.jpeg"
                 className="shadow-lg rounded-full max-w-full mx-auto"
-                style={{ maxWidth: 120 }}
+                style={{ width: "120px", height: "120px" }}
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Niti Mangwani</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold"></p>
-                <div className="mt-6">
-                  <button
-                    className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-google" />
-                  </button>
-                  <button
-                    className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-facebook-square" />
-                  </button>
-                </div>
+                <a
+                  href="mailto:"
+                  className="mt-1 text-sm text-gray-500 font-semibold"
+                >
+                  nitimangwani@gmail.com
+                </a>
+
+                <div className="mt-6"></div>
               </div>
             </div>
           </div>
@@ -280,31 +243,16 @@ const About = () => (
                 alt="..."
                 src="https://github.com/Nitss10/aboutUs/raw/master/pratik.jpg"
                 className="shadow-lg rounded-full max-w-full mx-auto"
-                style={{ maxWidth: 120 }}
+                style={{ width: "120px", height: "120px" }}
               />
               <div className="pt-6 text-center">
-                <h5 className="text-xl font-bold">Prateek Mehta</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold"></p>
-                <div className="mt-6">
-                  <button
-                    className="bg-red-600 text-white w-8 h-8 rounded-fulloutline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-google" />
-                  </button>
-                  <button
-                    className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-twitter" />
-                  </button>
-                  <button
-                    className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-instagram" />
-                  </button>
-                </div>
+                <h5 className="text-xl font-bold">Pratik Mehta</h5>
+                <a
+                  href="mailto:pratikmehta.cs@gmail.com"
+                  className="mt-1 text-sm text-gray-500 font-semibold"
+                >
+                  pratikmehta.cs@gmail.com
+                </a>
               </div>
             </div>
           </div>
@@ -314,37 +262,16 @@ const About = () => (
                 alt="..."
                 src="https://github.com/Nitss10/aboutUs/raw/master/rishav.jpg"
                 className="shadow-lg rounded-full max-w-full mx-auto"
-                style={{ maxWidth: 120 }}
+                style={{ width: "120px", height: "120px" }}
               />
               <div className="pt-6 text-center">
                 <h5 className="text-xl font-bold">Rishav Thakur</h5>
-                <p className="mt-1 text-sm text-gray-500 uppercase font-semibold"></p>
-                <div className="mt-6">
-                  <button
-                    className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-dribbble" />
-                  </button>
-                  <button
-                    className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-google" />
-                  </button>
-                  <button
-                    className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-twitter" />
-                  </button>
-                  <button
-                    className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                  >
-                    <i className="fab fa-instagram" />
-                  </button>
-                </div>
+                <a
+                  href="mailto:rishav.21m@gmail.com"
+                  className="mt-1 text-sm text-gray-500 font-semibold"
+                >
+                  rishav.21m@gmail.com
+                </a>
               </div>
             </div>
           </div>

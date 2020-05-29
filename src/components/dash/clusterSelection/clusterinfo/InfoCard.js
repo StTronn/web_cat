@@ -15,6 +15,7 @@ const InfoCard = ({
   loading,
   data,
 }) => {
+  console.log("missing data", data);
   let downClassName = " bg-red-300 text-sm ml-2 rounded-lg p-1";
   let upClassName = " bg-teal-300 text-sm ml-2 rounded-lg p-1";
   if (!flip)
@@ -65,7 +66,9 @@ const InfoCard = ({
 };
 
 const FlipedInfo = ({ handleFlip, name, loading, data }) => {
+  console.log("flipped data ", data);
   let arr = _.map(data, name);
+  let dates = _.map(data, "date");
   console.log("flip", data, loading);
   if (data.length !== 0) {
     return (
@@ -78,7 +81,7 @@ const FlipedInfo = ({ handleFlip, name, loading, data }) => {
             height: "60vh",
           }}
         >
-          <LineChart arr={arr} />
+          <LineChart arr={arr} dates={dates} name={name} />
         </div>
         <div className="animate__animated animate__flipInX w-full mx-4">
           <BarInfo arr={arr} />

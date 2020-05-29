@@ -39,9 +39,9 @@ class ClusterInfo extends React.Component {
       flipSize: false,
       flipKeyword: false,
       day: 1,
-      singleDate: moment(),
-      startDate: moment().subtract(10, "days"),
-      endDate: moment(),
+      singleDate: moment().subtract(1, "days"),
+      startDate: moment().subtract(30, "days"),
+      endDate: moment().subtract(1, "days"),
       singleDateData: {},
       rangeDateData: [],
       loading: false,
@@ -118,8 +118,15 @@ class ClusterInfo extends React.Component {
   handleFlip = (w) => {
     let { flipRank, flipSize, showRank, showSize } = this.state;
     if (w === "rank")
-      this.setState({ flipRank: !flipRank, showSize: !showSize });
-    else this.setState({ flipSize: !flipSize, showRank: !showRank });
+      this.setState(
+        { flipRank: !flipRank, showSize: !showSize },
+        this.fetchInfo
+      );
+    else
+      this.setState(
+        { flipSize: !flipSize, showRank: !showRank },
+        this.fetchInfo
+      );
   };
 
   handleKeyWordFlip = () => {
@@ -180,7 +187,7 @@ class ClusterInfo extends React.Component {
             <SingleDate date={singleDate} updateDate={this.changeSingleDate} />
           )}
 
-          {(flipRank || flipRank) && (
+          {(flipRank || flipSize) && (
             <DaySelector
               startDate={startDate}
               endDate={endDate}

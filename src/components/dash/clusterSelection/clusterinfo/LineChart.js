@@ -13,11 +13,11 @@ export default class Example extends React.Component {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/xqjtetw0/";
 
   render() {
-    let { arr } = this.props;
-
+    let { arr, dates, name } = this.props;
+    console.log("name", name);
     let data = [];
     for (let i = 0; i < arr.length; i++) {
-      data.push({ name: "day" + (i + 1), pv: arr[i] });
+      data.push({ name: dates[i], [name]: arr[i] });
     }
 
     return (
@@ -36,13 +36,7 @@ export default class Example extends React.Component {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Line
-          type="monotone"
-          dataKey="pv"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-        />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" dataKey={name} stroke="#82ca9d" />
       </LineChart>
     );
   }

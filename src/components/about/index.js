@@ -27,10 +27,7 @@ const About = () => (
             'url("https://raw.githubusercontent.com/Nitss10/aboutUs/master/us1.png")',
         }}
       >
-        <span
-          id="blackOverlay"
-          className="w-full h-full absolute opacity-75 bg-black"
-        />
+        <span id="blackOverlay" className="w-full h-full absolute bg-black" />
       </div>
       <div className="container relative mx-auto">
         <div className="items-center flex flex-wrap">

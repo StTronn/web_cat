@@ -14,7 +14,9 @@ import Spinner from "react-spinkit";
 const Cointainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-top: 80px;
   justify-items: center;
+  align-items: center;
   margin-bottom: 40px;
   grid-template-areas:
     "t t"
@@ -60,52 +62,50 @@ class ClusterInfo extends React.Component {
     } = this.state;
     let url = URL;
     if (selectedClusterId) {
-      if (showRank && showSize && !flipKeyword) {
-        url +=
-          "/getOneDayClusterData/" +
-          singleDate.format("YYYY-MM-DD") +
-          "/" +
-          selectedClusterId;
+      url +=
+        "/getOneDayClusterData/" +
+        singleDate.format("YYYY-MM-DD") +
+        "/" +
+        selectedClusterId;
 
-        this.setState({ loading: true });
-        console.log("hit url ", url);
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.length !== 0) {
-              this.setState({ singleDateData: data[0], loading: false });
-            } else {
-              this.setState({ singleDateData: {}, loading: false });
-            }
-          })
-          .catch((error) => {
-            console.log(error);
+      this.setState({ loading: true });
+      console.log("hit url ", url);
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length !== 0) {
+            this.setState({ singleDateData: data[0], loading: false });
+          } else {
             this.setState({ singleDateData: {}, loading: false });
-          });
-      } else {
-        url +=
-          "/getClusterData/" +
-          startDate.format("YYYY-MM-DD") +
-          "/" +
-          endDate.format("YYYY-MM-DD") +
-          "/" +
-          selectedClusterId;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({ singleDateData: {}, loading: false });
+        });
+      url = URL;
+      url +=
+        "/getClusterData/" +
+        startDate.format("YYYY-MM-DD") +
+        "/" +
+        endDate.format("YYYY-MM-DD") +
+        "/" +
+        selectedClusterId;
 
-        this.setState({ loading: true });
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.length !== 0) {
-              this.setState({ rangeDateData: data, loading: false });
-            } else {
-              this.setState({ rangeDateData: [], loading: false });
-            }
-          })
-          .catch((error) => {
-            console.log(error);
+      this.setState({ loading: true });
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length !== 0) {
+            this.setState({ rangeDateData: data, loading: false });
+          } else {
             this.setState({ rangeDateData: [], loading: false });
-          });
-      }
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({ rangeDateData: [], loading: false });
+        });
     }
     //get cluster id
     //if cluster id is 0 do nothing
@@ -183,17 +183,22 @@ class ClusterInfo extends React.Component {
       let clusterSizearr = clusterInfo[selectedClusterId].size;
       return (
         <div key={selectedClusterId}>
-          {showRank && showSize && !flipKeyword && (
-            <SingleDate date={singleDate} updateDate={this.changeSingleDate} />
-          )}
+          <Cointainer>
+            {!flipKeyword && (
+              <SingleDate
+                date={singleDate}
+                updateDate={this.changeSingleDate}
+              />
+            )}
 
-          {(flipRank || flipSize) && (
-            <DaySelector
-              startDate={startDate}
-              endDate={endDate}
-              updateDate={this.handleDateRangeChange}
-            />
-          )}
+            {!flipKeyword && (
+              <DaySelector
+                startDate={startDate}
+                endDate={endDate}
+                updateDate={this.handleDateRangeChange}
+              />
+            )}
+          </Cointainer>
 
           {loading && (
             <Prompt message={<Spinner name="folding-cube" color="teal" />} />
@@ -204,30 +209,35 @@ class ClusterInfo extends React.Component {
           )}
 
           {!flipKeyword && !loading && !_.isEmpty(singleDateData) && (
-            <Cointainer>
-              <InfoCard
-                flip={flipRank}
-                hide={!showRank}
-                name="rank"
-                primaryData={singleDateData.rank}
-                secondaryData={singleDateData.rankChange}
-                handleFlip={this.handleFlip}
-                arr={clusterRankarr}
-                loading={loading}
-                data={rangeDateData}
-              />
-              <InfoCard
-                flip={flipSize}
-                hide={!showSize}
-                name="size"
-                primaryData={singleDateData.size}
-                secondaryData={singleDateData.sizeChange}
-                handleFlip={this.handleFlip}
-                arr={clusterSizearr}
-                loading={loading}
-                data={rangeDateData}
-              />
-            </Cointainer>
+            <>
+              <Cointainer>
+                <InfoCard
+                  flip={flipRank}
+                  hide={!showRank}
+                  name="rank"
+                  primaryData={singleDateData.rank}
+                  secondaryData={singleDateData.rankChange}
+                  handleFlip={this.handleFlip}
+                  arr={clusterRankarr}
+                  loading={loading}
+                  data={rangeDateData}
+                />
+              </Cointainer>
+
+              <Cointainer>
+                <InfoCard
+                  flip={flipSize}
+                  hide={!showSize}
+                  name="size"
+                  primaryData={singleDateData.size}
+                  secondaryData={singleDateData.sizeChange}
+                  handleFlip={this.handleFlip}
+                  arr={clusterSizearr}
+                  loading={loading}
+                  data={rangeDateData}
+                />
+              </Cointainer>
+            </>
           )}
           <div
             className="animate__animated animate__fadeInDown"

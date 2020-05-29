@@ -14,10 +14,8 @@ import Spinner from "react-spinkit";
 const Cointainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: 80px;
   justify-items: center;
   align-items: center;
-  margin-bottom: 40px;
   grid-template-areas:
     "t t"
     "b b";

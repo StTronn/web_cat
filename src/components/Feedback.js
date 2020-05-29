@@ -59,7 +59,7 @@ export default class Feedback extends React.Component {
           class="fixed bottom-0 right-0 mr-4 mb-2  "
         >
           <div class="bg-white cursor-pointer rounded-lg font-light text-sm shadow-md px-4 py-2 border-1 border-gray-400">
-            Suggest group name
+            Suggest category name
             <svg className="inline " width="28" height="28">
               <FeedbackSvg />
             </svg>

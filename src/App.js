@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar";
 import Dash from "./components/dash/index";
 import Overview from "./components/Overview/index";
 import Home from "./components/Home/index";
-import Feedback from "./components/Feedback";
+import About from "./components/about/index";
 import Predict from "./components/websites/index";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -59,6 +59,9 @@ class App extends React.Component {
             </Route>
             <Route path="/overview">
               <Overview />
+            </Route>
+            <Route path="/about">
+              <About />
             </Route>
             <Route path="/">
               <Home />

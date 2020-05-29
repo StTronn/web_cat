@@ -14,7 +14,7 @@ export default class Example extends React.Component {
 
   render() {
     let { arr, dates, name } = this.props;
-    console.log("name", name);
+    name = name === "rank" ? "score" : name;
     let data = [];
     for (let i = 0; i < arr.length; i++) {
       data.push({ name: dates[i], [name]: arr[i] });

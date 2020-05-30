@@ -7,7 +7,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Cell,
   Tooltip,
   Legend,
@@ -27,10 +26,6 @@ const LoadingCointainer = styled.div`
   justify-items: center;
 `;
 
-const ButtonCointainer = styled.div`
-  display: grid;
-`;
-
 export default class OverviewGraph extends React.Component {
   state = {
     mode: "Rank", //2 modes Rank,Size
@@ -40,7 +35,7 @@ export default class OverviewGraph extends React.Component {
 
   fetchdata = () => {
     let { mode, loading } = this.state;
-    let url = URL + "/getAllClusterDataOf" + mode + "/2020-05-09";
+    let url = URL + "/getAllClusterData" + "/2020-05-23/2020-05-18";
 
     this.setState({ loading: true });
     fetch(url)
@@ -93,19 +88,21 @@ export default class OverviewGraph extends React.Component {
                 payload={[
                   {
                     id: "pr",
-                    value: mode,
+                    value: mode === "Rank" ? "Score" : mode,
                     type: "square",
                     color: "#2A4365",
                   },
                   {
                     id: "pc",
-                    value: " + " + mode + " change",
+                    value:
+                      " + " + (mode === "Rank" ? "Score" : mode) + " change",
                     type: "square",
                     color: COLORS[0],
                   },
                   {
                     id: "nc",
-                    value: " - " + mode + " change",
+                    value:
+                      " - " + (mode === "Rank" ? "Score" : mode) + " change",
                     type: "square",
                     color: COLORS[1],
                   },
@@ -148,7 +145,7 @@ function Button({ mode, handleMode }) {
           onClick={() => handleMode("Rank")}
           className={mode === "Rank" ? selectedClass : normalClass}
         >
-          <span className="mx-auto">Rank</span>
+          <span className="mx-auto">Score</span>
         </button>
       </div>
       <div className="m-3">

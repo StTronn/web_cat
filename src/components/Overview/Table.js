@@ -40,7 +40,7 @@ export default class Table extends React.Component {
   };
 
   fetchdata = () => {
-    let url = URL + "/getAllClusterDataOfRank/" + "/2020-05-09";
+    let url = URL + "/getAllClusterData" + "/2020-05-23/2020-05-18";
 
     this.setState({ loading: true });
     fetch(url)
@@ -58,8 +58,8 @@ export default class Table extends React.Component {
     let { page, maxpage, data, loading, mode } = this.state;
     let feilds = [
       { name: "Name", mode: "name" },
-      { name: "Rank", mode: "primary" },
-      { name: "Rank Change", mode: "secondary" },
+      { name: "Score", mode: "primary" },
+      { name: "Score Change", mode: "secondary" },
       { name: "Size", mode: "size" },
       { name: "Size Change", mode: "size_change" },
     ];

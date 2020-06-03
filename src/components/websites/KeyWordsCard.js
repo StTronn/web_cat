@@ -3,6 +3,7 @@ import KeyWord from "./KeyWord";
 
 export default function ({ keywords }) {
   console.log(keywords);
+  keywords = keywords.map((e) => capitalizeFirstLetter(e));
   return (
     <div className="animate__animated animate__fadeInDown max-w-md rounded overflow-hidden shadow-lg mx-4 my-6 ">
       <div className="px-6 py-4">
@@ -15,4 +16,8 @@ export default function ({ keywords }) {
       </div>
     </div>
   );
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

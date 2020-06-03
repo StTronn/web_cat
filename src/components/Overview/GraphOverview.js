@@ -63,11 +63,15 @@ export default class OverviewGraph extends React.Component {
 
     let { data, mode } = this.state;
     data = data.map((entry) => {
+      console.log("data", data);
       return {
         cluster_no: entry.cluster_no,
         cluster_name: entry.cluster_name,
-        Current: entry.primary,
-        Change: Math.abs(entry.secondary),
+        Current: mode === "Rank" ? entry.primary : entry.size,
+        Change:
+          mode === "Rank"
+            ? Math.abs(entry.secondary)
+            : Math.abs(entry.size_change),
         color: entry.secondary > 0 ? COLORS[0] : COLORS[1],
       };
     });

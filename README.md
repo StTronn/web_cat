@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation 
+```
+git clone git@github.com:StTronn/web_cat.git 
+cd web_cat
+yarn install && yarn build 
+node host.js 
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
